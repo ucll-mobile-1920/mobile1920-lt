@@ -1,3 +1,42 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+﻿
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:minWidth="25px"
+	android:minHeight="25px"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/linearLayout1">
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/name_label"
+		android:text="Name" />
+	<AutoCompleteTextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/name_txt" />
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/hint1_label"
+		android:text="Hint 1" />
+	<AutoCompleteTextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/hint1_txt" />
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/hint2_label"
+		android:text="Hint 2" />
+	<AutoCompleteTextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/hint2_txt" />
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/submit_btn"
+		android:text="Submit" />
 </LinearLayout>
