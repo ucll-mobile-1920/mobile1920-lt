@@ -1,5 +1,4 @@
-﻿
-<LinearLayout
+﻿<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:minWidth="25px"
@@ -12,12 +11,17 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/players_label"
 		android:text="Players" />
+    <TextView
+        android:id="@+id/Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dp" />
 	<ListView
 		android:minWidth="25px"
 		android:minHeight="25px"
 		android:layout_width="match_parent"
-		android:layout_height="235.5dp"
-		android:id="@+id/players_listView" />
+		android:layout_height="wrap_content"
+		android:id="@+id/list" />
 	<Button
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"

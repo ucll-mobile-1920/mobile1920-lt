@@ -3,7 +3,11 @@ namespace sTalker.Shared.Models
 {
     public class Player
     {
-        public string name;
+        public string Name
+        {
+            get;
+            set;
+        }
         public string hint1;
         public string hint2;
         public int roomCode;
