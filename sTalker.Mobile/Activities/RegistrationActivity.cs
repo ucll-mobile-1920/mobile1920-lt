@@ -6,18 +6,30 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using sTalker.Shared.Models;
 
 namespace sTalker
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
-    public class PlayersListActivity : AppCompatActivity
+    public class RegistrationActivity : AppCompatActivity
     {
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            SetContentView(Resource.Layout.playersList);
+            SetContentView(Resource.Layout.registration);
+
+            FindViewById<Button>(Resource.Id.submit_btn).Click += (sender, e) => {
+                if(MainActivity.player.isAdmin)
+                {
+                    StartActivity(typeof(PlayersListActivity));
+                }
+                else
+                {
+                    StartActivity(typeof(EnterRoomCodeActivity));
+                }
+            };
         }
     }
 }

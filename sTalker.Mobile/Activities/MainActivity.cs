@@ -1,17 +1,17 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using sTalker.Shared.Models;
 
 namespace sTalker
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
+        public static Player player;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -20,13 +20,13 @@ namespace sTalker
             SetContentView(Resource.Layout.main);
 
             FindViewById<Button>(Resource.Id.joinGame_btn).Click += (sender, e) => {
-                Finish();
+				player = new Player(false);
                 StartActivity(typeof(RegistrationActivity));
             };
 
             FindViewById<Button>(Resource.Id.createGame_btn).Click += (sender, e) => {
-                Finish();
-                StartActivity(typeof(CreateGameActivity));
+				player = new Player(true);
+                StartActivity(typeof(RegistrationActivity));
             };
         }
 
