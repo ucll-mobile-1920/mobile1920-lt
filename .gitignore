@@ -16,3 +16,21 @@ Server/bin/Debug/netcoreapp2.1/
 .vs/sTalker/xs/UserPrefs.xml
 
 .DS_Store
+
+sTalker.Mobile/obj/Debug/
+
+sTalker.Shared/obj/Debug/
+
+sTalker.Server/obj/
+
+sTalker.Mobile/.vs/sTalker.Mobile/xs/project-cache/
+
+sTalker.Mobile/.vs/sTalker.Mobile/xs/sqlite3/
+
+sTalker.Mobile/.vs/sTalker.Mobile/xs/
+
+sTalker.Mobile/bin/Debug/
+
+sTalker.Mobile/obj/.cache/
+
+sTalker.Mobile/obj/
