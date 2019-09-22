@@ -13,11 +13,15 @@ namespace sTalker
     public class PlayersListActivity : AppCompatActivity
     {
 
+        ListView playersListView;
+        
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.playersList);
+            playersListView = FindViewById<ListView>(Resource.Id.players_listView);
         }
     }
 }

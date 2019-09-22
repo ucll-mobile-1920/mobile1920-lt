@@ -6,6 +6,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using sTalker.Shared.Models;
 
 namespace sTalker
 {
@@ -20,7 +21,14 @@ namespace sTalker
             SetContentView(Resource.Layout.registration);
 
             FindViewById<Button>(Resource.Id.submit_btn).Click += (sender, e) => {
-                StartActivity(typeof(EnterRoomCodeActivity));
+                if(MainActivity.player.isAdmin)
+                {
+                    StartActivity(typeof(PlayersListActivity));
+                }
+                else
+                {
+                    StartActivity(typeof(EnterRoomCodeActivity));
+                }
             };
         }
     }
