@@ -17,13 +17,17 @@ namespace sTalker
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            SetContentView(Resource.Layout.activity_main);
+            SetContentView(Resource.Layout.main);
 
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
+            FindViewById<Button>(Resource.Id.joinGame_btn).Click += (sender, e) => {
+                Finish();
+                StartActivity(typeof(RegistrationActivity));
+            };
 
-            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
-            fab.Click += FabOnClick;
+            FindViewById<Button>(Resource.Id.createGame_btn).Click += (sender, e) => {
+                Finish();
+                StartActivity(typeof(CreateGameActivity));
+            };
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -43,12 +47,6 @@ namespace sTalker
             return base.OnOptionsItemSelected(item);
         }
 
-        private void FabOnClick(object sender, EventArgs eventArgs)
-        {
-            View view = (View)sender;
-            Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
-                .SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
-        }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);

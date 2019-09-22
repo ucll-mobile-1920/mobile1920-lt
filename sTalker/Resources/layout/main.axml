@@ -1,0 +1,23 @@
+﻿
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:minWidth="25px"
+	android:minHeight="25px"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/linearLayout1">
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/joinGame_btn"
+		android:text="JOIN GAME"
+		android:layout_marginBottom="0.0dp"
+		android:layout_marginTop="0.0dp" />
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/createGame_btn"
+		android:text="CREATE GAME"
+		android:layout_marginBottom="0.0dp" />
+</LinearLayout>
