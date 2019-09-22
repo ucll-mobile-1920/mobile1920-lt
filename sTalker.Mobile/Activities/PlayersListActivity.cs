@@ -7,6 +7,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using sTalker.Activities;
 using sTalker.Adapters;
 using sTalker.Shared.Models;
 
@@ -22,6 +23,11 @@ namespace sTalker
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.playersList);
+
+            FindViewById<Button>(Resource.Id.startGame_btn).Click += (sender, e) => {
+                StartActivity(typeof(GameActivity));
+            };
+
             List<Player> players = new List<Player>();
             Player p1 = new Player(false);
             p1.Name = "John";

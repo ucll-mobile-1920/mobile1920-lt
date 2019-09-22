@@ -6,6 +6,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using sTalker.Activities;
 
 namespace sTalker
 {
@@ -20,7 +21,7 @@ namespace sTalker
             SetContentView(Resource.Layout.enterRoomCode);
 
             FindViewById<Button>(Resource.Id.enterRoom_btn).Click += (sender, e) => {
-                //StartActivity(typeof(RegistrationActivity));
+                StartActivity(typeof(GameActivity));
             };
         }
     }

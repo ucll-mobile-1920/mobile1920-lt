@@ -66,6 +66,8 @@
     <Compile Include="Activities\EnterRoomCodeActivity.cs" />
     <Compile Include="Activities\PlayersListActivity.cs" />
     <Compile Include="Adapters\PlayersAdapter.cs" />
+    <Compile Include="Activities\GameActivity.cs" />
+    <Compile Include="Activities\TryAgainActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -113,6 +115,18 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\playersList.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\game.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\tryAgain.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\playerRow.axml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

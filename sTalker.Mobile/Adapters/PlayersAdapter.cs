@@ -42,7 +42,7 @@ namespace sTalker.Adapters
             {
                 if (row == null)
                 {
-                    row = LayoutInflater.From(context).Inflate(Resource.Layout.playersRow, null, false);
+                    row = LayoutInflater.From(context).Inflate(Resource.Layout.playerRow, null, false);
                 }
                 TextView txtName = row.FindViewById<TextView>(Resource.Id.Name);
                 txtName.Text = list[position].Name;

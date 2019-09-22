@@ -20,7 +20,11 @@ namespace sTalker.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your application here
+            SetContentView(Resource.Layout.tryAgain);
+
+            FindViewById<Button>(Resource.Id.tryAgain_btn).Click += (sender, e) => {
+                StartActivity(typeof(GameActivity));
+            };
         }
     }
 }

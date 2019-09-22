@@ -19,8 +19,11 @@ namespace sTalker.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            SetContentView(Resource.Layout.game);
 
-            // Create your application here
+            FindViewById<Button>(Resource.Id.capture_btn).Click += (sender, e) => {
+                StartActivity(typeof(TryAgainActivity));
+            };
         }
     }
 }
