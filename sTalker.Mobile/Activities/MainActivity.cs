@@ -4,6 +4,9 @@ using Android.Runtime;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using Firebase.Database;
+using Java.Util;
+using sTalker.Helpers;
 using sTalker.Shared.Models;
 
 namespace sTalker
@@ -25,8 +28,14 @@ namespace sTalker
             };
 
             FindViewById<Button>(Resource.Id.createGame_btn).Click += (sender, e) => {
-				player = new Player(true);
-                StartActivity(typeof(RegistrationActivity));
+                //player = new Player(true);
+                //StartActivity(typeof(RegistrationActivity));
+                HashMap game = new HashMap();
+                game.Put("code", 1234);
+                game.Put("time", 2019);
+                DatabaseReference newGame = DataHelper.GetDatabase().GetReference("game").Push();
+                newGame.SetValue((Java.Lang.Object)game);
+                
             };
         }
 

@@ -7,9 +7,12 @@ namespace sTalker.Shared.Models
     {
         public List<Player> players;
         public int gameTime;
+        public int roomCode;
 
-        public Game()
+        public Game(int roomCode, int gameTime)
         {
+            this.gameTime = gameTime;
+            this.roomCode = roomCode;
         }
     }
 }

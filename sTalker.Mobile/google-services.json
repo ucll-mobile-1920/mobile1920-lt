@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "603517144745",
+    "firebase_url": "https://stalker-2019.firebaseio.com",
+    "project_id": "stalker-2019",
+    "storage_bucket": "stalker-2019.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603517144745:android:36666874a3dab658a963b8",
+        "android_client_info": {
+          "package_name": "com.ucll.stalker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "603517144745-f3sh7155q68gnnfbcdgdtaoje6nc9hg7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9iN0Rkx_3E8tIxYLS6xK4tzaPwUCNxfA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "603517144745-f3sh7155q68gnnfbcdgdtaoje6nc9hg7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
