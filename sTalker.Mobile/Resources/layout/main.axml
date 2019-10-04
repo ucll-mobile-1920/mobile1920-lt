@@ -6,18 +6,29 @@
 	android:minHeight="25px"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:background="#ffffffff"
 	android:id="@+id/linearLayout1">
-	<Button
+	<ImageView
+		android:src="@drawable/logo"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="200dp"
+		android:id="@+id/imageView1" />
+	<Button
 		android:id="@+id/joinGame_btn"
 		android:text="JOIN GAME"
-		android:layout_marginBottom="0.0dp"
-		android:layout_marginTop="0.0dp"/>
-	<Button
+		android:textColor="#FFFFFF"
+		android:textSize="25sp"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="60dp"
+		android:background="@drawable/buttonshape"
+		android:layout_marginTop="@dimen/abc_action_bar_overflow_padding_end_material" />
+	<Button
 		android:id="@+id/createGame_btn"
 		android:text="CREATE GAME"
-		android:layout_marginBottom="0.0dp" />
+		android:textColor="#FFFFFF"
+		android:textSize="25sp"
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:background="@drawable/buttonshape"
+		android:layout_marginTop="@dimen/abc_action_bar_icon_vertical_padding_material" />
 </LinearLayout>

@@ -1,4 +1,6 @@
-﻿using Android.App;
+﻿using System;
+using System.Collections.Generic;
+using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.App;
@@ -6,15 +8,21 @@ using Android.Views;
 using Android.Widget;
 using Firebase.Database;
 using Java.Util;
+using Newtonsoft.Json;
 using sTalker.Helpers;
+using sTalker.Listeners;
 using sTalker.Shared.Models;
 
 namespace sTalker
 {
+    
+
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
         public static Player player;
+        GameListener gameListener;
+        
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -28,15 +36,20 @@ namespace sTalker
             };
 
             FindViewById<Button>(Resource.Id.createGame_btn).Click += (sender, e) => {
-                //player = new Player(true);
-                //StartActivity(typeof(RegistrationActivity));
-                HashMap game = new HashMap();
-                game.Put("code", 1234);
-                game.Put("time", 2019);
-                DatabaseReference newGame = DataHelper.GetDatabase().GetReference("game").Push();
-                newGame.SetValue((Java.Lang.Object)game);
-                
+                StartActivity(typeof(CreateGameActivity));      
             };
+        }
+
+        public void RetriveData()
+        {
+            gameListener = new GameListener();
+            gameListener.Create();
+            gameListener.DataRetrieved += GameListener_GamesRetrieved;
+        }
+
+        private void GameListener_GamesRetrieved(object sender, GameListener.GameDataEventArgs e)
+        {
+            //ga
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

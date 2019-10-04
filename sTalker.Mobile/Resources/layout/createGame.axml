@@ -1,8 +1,29 @@
 ﻿
-<AbsoluteLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
 	android:minWidth="25px"
 	android:minHeight="25px"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:id="@+id/absoluteLayout1" />
+	android:id="@+id/linearLayout1">
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/roomCode_label"
+		android:text="Title" />
+	<AutoCompleteTextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/title_txt" />
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/roomCode_label"
+		android:text="Room code" />
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/next_btn"
+		android:text="Next" />
+</LinearLayout>
