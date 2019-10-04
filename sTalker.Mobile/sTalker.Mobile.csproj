@@ -104,10 +104,6 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\createGame.axml">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\enterRoomCode.axml">
       <SubType></SubType>
       <Generator></Generator>
@@ -141,6 +137,10 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\logo.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\createGame.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
