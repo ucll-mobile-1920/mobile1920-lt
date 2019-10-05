@@ -136,11 +136,15 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\createGame.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\logo.png">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\createGame.xml">
+    <AndroidResource Include="Resources\drawable\circle_blue.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

@@ -19,17 +19,6 @@ namespace sTalker
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.registration);
-
-            FindViewById<Button>(Resource.Id.submit_btn).Click += (sender, e) => {
-                if(MainActivity.player.isAdmin)
-                {
-                    StartActivity(typeof(PlayersListActivity));
-                }
-                else
-                {
-                    StartActivity(typeof(EnterRoomCodeActivity));
-                }
-            };
         }
     }
 }
