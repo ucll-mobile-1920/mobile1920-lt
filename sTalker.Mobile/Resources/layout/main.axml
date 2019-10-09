@@ -1,34 +1,38 @@
-﻿
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:minWidth="25px"
-	android:minHeight="25px"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:background="#ffffffff"
-	android:id="@+id/linearLayout1">
-	<ImageView
-		android:src="@drawable/logo"
-		android:layout_width="match_parent"
-		android:layout_height="200dp"
-		android:id="@+id/imageView1" />
-	<Button
-		android:id="@+id/joinGame_btn"
-		android:text="JOIN GAME"
-		android:textColor="#FFFFFF"
-		android:textSize="25sp"
-		android:layout_width="match_parent"
-		android:layout_height="60dp"
-		android:background="@drawable/buttonshape"
-		android:layout_marginTop="@dimen/abc_action_bar_overflow_padding_end_material" />
-	<Button
-		android:id="@+id/createGame_btn"
-		android:text="CREATE GAME"
-		android:textColor="#FFFFFF"
-		android:textSize="25sp"
-		android:layout_width="match_parent"
-		android:layout_height="60dp"
-		android:background="@drawable/buttonshape"
-		android:layout_marginTop="@dimen/abc_action_bar_icon_vertical_padding_material" />
-</LinearLayout>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#01908A">
+    <TextView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="175dp"
+        android:text="logo"
+        android:textColor="#FFF"
+        android:textSize="28sp"
+        android:textStyle="bold" />  
+    <Button
+        android:id="@+id/newGame_btn"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/circle_blue"
+        android:text="new game"
+        android:textColor="#01908A"
+        android:textSize="18sp" />
+    <Button
+        android:id="@+id/joinRoom_btn"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/newGame_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/circle_blue"
+        android:text="join room"
+        android:textColor="#01908A"
+        android:textSize="18sp" />
+</RelativeLayout>

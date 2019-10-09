@@ -30,13 +30,12 @@ namespace sTalker
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.main);
 
-            FindViewById<Button>(Resource.Id.joinGame_btn).Click += (sender, e) => {
-				player = new Player(false);
-                StartActivity(typeof(RegistrationActivity));
+            FindViewById<Button>(Resource.Id.newGame_btn).Click += (sender, e) => {
+                StartActivity(typeof(CreateGameActivity));
             };
 
-            FindViewById<Button>(Resource.Id.createGame_btn).Click += (sender, e) => {
-                StartActivity(typeof(CreateGameActivity));      
+            FindViewById<Button>(Resource.Id.joinRoom_btn).Click += (sender, e) => {
+                StartActivity(typeof(RegistrationActivity));
             };
         }
 

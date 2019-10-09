@@ -24,7 +24,7 @@ namespace sTalker
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.playersList);
 
-            FindViewById<Button>(Resource.Id.startGame_btn).Click += (sender, e) => {
+            FindViewById<Button>(Resource.Id.letsTalk_btn).Click += (sender, e) => {
                 StartActivity(typeof(GameActivity));
             };
 

@@ -4,7 +4,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
-using Android.Views;
 using Android.Widget;
 using Firebase.Database;
 using Newtonsoft.Json;
@@ -16,7 +15,8 @@ namespace sTalker
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class CreateGameActivity : AppCompatActivity
     {
-        AutoCompleteTextView title;
+        EditText title;
+        public static Game game;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -24,7 +24,7 @@ namespace sTalker
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.createGame);
 
-            title = FindViewById<AutoCompleteTextView>(Resource.Id.title_txt);
+            title = FindViewById<EditText>(Resource.Id.nameOfTheGame_txt);
 
             FindViewById<Button>(Resource.Id.next_btn).Click += (sender, e) => {
                 CreateGame(title.Text);
@@ -34,7 +34,7 @@ namespace sTalker
 
         private void CreateGame(string gameTitle)
         {
-            Game game = new Game(gameTitle);
+            game = new Game(gameTitle);
             DatabaseReference reference = DataHelper.GetDatabase().GetReference("games");
             reference.Child(game.RoomCode.ToString()).SetValue(JsonConvert.SerializeObject(game));
         }

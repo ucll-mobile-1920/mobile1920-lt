@@ -1,41 +1,67 @@
-﻿
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:weightSum="10"
-	android:id="@+id/linearLayout1">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#01908A">
 
-	<LinearLayout
-		android:orientation="vertical"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/linearLayout2"
-		android:layout_weight="8"
-		android:gravity="center_horizontal">
+    <TextView
+        android:id="@+id/nameOfTheGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="Name of the game"
+        android:textColor="#fff"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
-		<TextView
-			android:layout_width="wrap_content"
+    <EditText
+            android:id="@+id/nameOfTheGame_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameOfTheGame"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="48dp"
+            android:orientation="vertical"
+            android:background="#fff"
+            android:inputType="textEmailAddress"
+            android:padding="4dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="#727272" />
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/nameOfTheGame_txt"
+        android:layout_marginTop="22dp"
+        android:text="Duration"
+        android:textColor="#fff"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <SeekBar
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:id="@+id/roomCode_label"
-			android:text="Title" />
-		<AutoCompleteTextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/title_txt" />
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/roomCode_label"
-			android:text="Room code" />
-		<Button
-			android:id="@+id/next_btn"
-			android:text="Next"
-			android:textColor="#FFFFFF"
-			android:textSize="@dimen/abc_action_bar_overflow_padding_end_material"
-			android:layout_width="wrap_content"
-			android:layout_height="60dp"
-			android:background="@drawable/buttonshape"/>
-	</LinearLayout>
-</LinearLayout>
+            android:thumbTint="#fff"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="48dp"
+            android:orientation="vertical"
+            android:layout_below="@id/duration"
+			android:id="@+id/time_seekBar" />
+    
+    <Button
+        android:id="@+id/next_btn"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/time_seekBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/circle_blue"
+        android:text="next"
+        android:textColor="#01908A"
+        android:textSize="18sp" />
+</RelativeLayout>
