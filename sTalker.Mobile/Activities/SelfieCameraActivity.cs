@@ -20,7 +20,12 @@ namespace sTalker.Activities
 			base.OnCreate (bundle);
 			SetContentView (Resource.Layout.cameraWindowBase);
 
-			if (bundle == null) {
+            //FindViewById<Button>(Resource.Id.takeSelfie_btn).Click += (sender, e) =>
+            //{
+            //    StartActivity(typeof(GameActivity));
+            //};
+
+            if (bundle == null) {
 				FragmentManager.BeginTransaction ().Replace (Resource.Id.container, Camera2Fragment.NewInstance (this,this,true)).Commit ();
 			}
 		}

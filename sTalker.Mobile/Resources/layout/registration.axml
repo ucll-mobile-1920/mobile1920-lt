@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#01908A">
 
     <TextView
         android:id="@+id/app_name"
@@ -10,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
         android:text="Title"
-        android:textColor="#000"
+        android:textColor="#fff"
         android:textSize="28sp"
         android:textStyle="bold" />
 
@@ -23,7 +24,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginEnd="18dp"
         android:text="Name"
-        android:textColor="@android:color/black"
+        android:textColor="#fff"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -38,17 +39,14 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/user_email"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-
-            android:background="@android:color/transparent"
-            android:hint="user_email_hint"
             android:inputType="textEmailAddress"
             android:padding="4dp"
             android:textColor="@android:color/black"
-            android:textColorHint="#727272" />
+            android:background="#006F6B" />
     </LinearLayout>
 
     <TextView
@@ -60,7 +58,7 @@
         android:layout_marginTop="115dp"
         android:layout_marginEnd="18dp"
         android:text="Hints"
-        android:textColor="@android:color/black"
+        android:textColor="#fff"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -75,91 +73,58 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/user_email1"
+            android:id="@+id/hint1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-
-            android:background="@android:color/transparent"
-            android:hint="user_email_hint"
             android:inputType="textEmailAddress"
             android:padding="4dp"
             android:textColor="@android:color/black"
-            android:textColorHint="#727272" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="#eaeaea" />
+            android:background="#006F6B"/>
 
         <EditText
-            android:id="@+id/user_pass2"
+            android:id="@+id/hint2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            android:hint="user_pass_hint"
-            android:inputType="textPassword"
+            android:inputType="textEmailAddress"
             android:padding="4dp"
-            android:textColor="@android:color/black"
-            android:textColorHint="#727272" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="#eaeaea" />
+            android:background="#006F6B"
+            android:textColor="@android:color/black"/>
 
         <EditText
-            android:id="@+id/user_pass3"
+            android:id="@+id/hint3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            android:hint="user_pass_hint"
-            android:inputType="textPassword"
+            android:inputType="textEmailAddress"
             android:padding="4dp"
-            android:textColor="@android:color/black"
-            android:textColorHint="#727272" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="#eaeaea" />
+            android:background="#006F6B"
+            android:textColor="@android:color/black"/>
 
         <EditText
-            android:id="@+id/user_pass4"
+            android:id="@+id/hint4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            android:hint="user_pass_hint"
-            android:inputType="textPassword"
+            android:inputType="textEmailAddress"
             android:padding="4dp"
-            android:textColor="@android:color/black"
-            android:textColorHint="#727272" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="#eaeaea" />
-
+            android:background="#006F6B"
+            android:textColor="@android:color/black"/>
+       
         <EditText
-            android:id="@+id/user_pass5"
+            android:id="@+id/hint5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            android:hint="user_pass_hint"
-            android:inputType="textPassword"
+            android:inputType="textEmailAddress"
             android:padding="4dp"
-            android:textColor="@android:color/black"
-            android:textColorHint="#727272" />
+            android:background="#006F6B"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/next_btn"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_texts"
@@ -167,6 +132,6 @@
         android:layout_marginTop="22dp"
         android:background="@drawable/circle_blue"
         android:text="next"
-        android:textColor="@android:color/white"
+        android:textColor="#01908A"
         android:textSize="18sp" />
 </RelativeLayout>

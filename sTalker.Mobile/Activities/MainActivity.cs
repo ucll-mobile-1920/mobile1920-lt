@@ -13,10 +13,9 @@ using sTalker.Helpers;
 using sTalker.Listeners;
 using sTalker.Shared.Models;
 
-namespace sTalker
+namespace sTalker.Activities
 {
     
-
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
@@ -35,7 +34,7 @@ namespace sTalker
             };
 
             FindViewById<Button>(Resource.Id.joinRoom_btn).Click += (sender, e) => {
-                StartActivity(typeof(RegistrationActivity));
+                StartActivity(typeof(EnterRoomCodeActivity));
             };
         }
 

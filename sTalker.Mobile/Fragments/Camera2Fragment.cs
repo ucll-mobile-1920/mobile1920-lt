@@ -143,7 +143,7 @@ namespace sTalker.Fragments
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             mTextureView = (AutoFitTextureView)view.FindViewById(Resource.Id.texture);
-            view.FindViewById(Resource.Id.takePicture).SetOnClickListener(this);
+            view.FindViewById(Resource.Id.takeSelfie_btn).SetOnClickListener(this);
         }
 
         public override void OnActivityCreated(Bundle savedInstanceState)
@@ -484,7 +484,7 @@ namespace sTalker.Fragments
 
         public void OnClick(View v)
         {
-            if (v.Id == Resource.Id.takePicture)
+            if (v.Id == Resource.Id.takeSelfie_btn)
             {
                     LockFocus();
             }

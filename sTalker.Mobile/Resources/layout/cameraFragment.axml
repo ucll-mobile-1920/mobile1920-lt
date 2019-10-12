@@ -16,7 +16,7 @@
         android:layout_above="@id/texture"
         android:background="#01908A">
         <Button
-            android:id="@+id/takePicture"
+            android:id="@+id/takeSelfie_btn"
 			android:background="@drawable/circle_blue"
 			android:layout_width="240dp"
             android:layout_height="wrap_content"
