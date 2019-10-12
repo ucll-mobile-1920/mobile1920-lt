@@ -17,9 +17,13 @@ namespace sTalker
     {
         EditText title;
         public static Game game;
+        int duration;
+        SeekBar seekBar;
+        TextView textView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            duration = 10;
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.createGame);
@@ -30,13 +34,26 @@ namespace sTalker
                 CreateGame(title.Text);
                 StartActivity(typeof(PlayersListActivity));
             };
+
+            seekBar = FindViewById<SeekBar>(Resource.Id.time_seekBar);
+            textView = FindViewById<TextView>(Resource.Id.time);
+            seekBar.Max = 170;
+            seekBar.ProgressChanged += (object sender, SeekBar.ProgressChangedEventArgs e) => {
+                if (e.FromUser)
+                {
+                    textView.Text = string.Format("{0} min", e.Progress+10);
+                    duration = e.Progress + 10;
+                }
+            };
+
         }
 
         private void CreateGame(string gameTitle)
         {
-            game = new Game(gameTitle);
+            game = new Game(gameTitle, duration);
             DatabaseReference reference = DataHelper.GetDatabase().GetReference("games");
-            reference.Child(game.RoomCode.ToString()).SetValue(JsonConvert.SerializeObject(game));
+            reference.Child(game.RoomCode.ToString()).Child("info").Child("title").SetValue(game.Title);
+            reference.Child(game.RoomCode.ToString()).Child("info").Child("duration").SetValue(game.Duration);
         }
     }
 }

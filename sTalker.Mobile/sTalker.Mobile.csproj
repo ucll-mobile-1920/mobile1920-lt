@@ -70,6 +70,11 @@
     <Compile Include="Activities\TryAgainActivity.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Listeners\GameListener.cs" />
+    <Compile Include="Activities\RegisterPhotoActivity.cs" />
+    <Compile Include="GameInfo.cs" />
+    <Compile Include="Activities\ProveItActivity.cs" />
+    <Compile Include="Activities\LivePointsActivity.cs" />
+    <Compile Include="Listeners\PlayersListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -145,6 +150,18 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\circle_blue.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\registerPhoto.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\proveIt.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\livePoints.axml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

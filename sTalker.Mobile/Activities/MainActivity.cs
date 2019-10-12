@@ -35,7 +35,7 @@ namespace sTalker
             };
 
             FindViewById<Button>(Resource.Id.joinRoom_btn).Click += (sender, e) => {
-                StartActivity(typeof(RegistrationActivity));
+                StartActivity(typeof(EnterRoomCodeActivity));
             };
         }
 

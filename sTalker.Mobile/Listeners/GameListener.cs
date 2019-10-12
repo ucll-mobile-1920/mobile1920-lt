@@ -34,7 +34,7 @@ namespace sTalker.Listeners
                 var child = snapshot.Children.ToEnumerable<DataSnapshot>();
                 foreach (DataSnapshot game in child)
                 {
-                    Player player = new Player(true);
+                    Player player = new Player();
                     game.Child("ffff").Value.ToString();
                     list.Add(player);
                 }
