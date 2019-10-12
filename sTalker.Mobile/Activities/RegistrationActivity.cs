@@ -6,6 +6,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using sTalker.Activities;
 using sTalker.Shared.Models;
 
 namespace sTalker
@@ -19,6 +20,10 @@ namespace sTalker
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.registration);
+
+            FindViewById<Button>(Resource.Id.btn_login).Click += (sender, e) => {
+                StartActivity(typeof(SelfieCameraActivity));
+            };
         }
     }
 }
