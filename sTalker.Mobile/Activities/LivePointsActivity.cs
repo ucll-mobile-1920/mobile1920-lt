@@ -13,18 +13,16 @@ using Android.Widget;
 
 namespace sTalker.Activities
 {
-    [Activity(Label = "TryAgainActivity")]
-    public class TryAgainActivity : Activity
+    [Activity(Label = "LivePointsActivity")]
+    public class LivePointsActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            SetContentView(Resource.Layout.livePoints);
 
-            //SetContentView(Resource.Layout.tryAgain);
-
-            //FindViewById<Button>(Resource.Id.tryAgain_btn).Click += (sender, e) => {
-             //   StartActivity(typeof(GameActivity));
-            //};
+            FindViewById<TextView>(Resource.Id.title).Text = GameInfo.title;
+            FindViewById<TextView>(Resource.Id.roomCode).Text = GameInfo.roomCode;
         }
     }
 }

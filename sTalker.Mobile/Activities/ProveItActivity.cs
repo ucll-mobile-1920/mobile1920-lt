@@ -13,18 +13,18 @@ using Android.Widget;
 
 namespace sTalker.Activities
 {
-    [Activity(Label = "TryAgainActivity")]
-    public class TryAgainActivity : Activity
+    [Activity(Label = "ProveItActivity")]
+    public class ProveItActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            //SetContentView(Resource.Layout.tryAgain);
-
-            //FindViewById<Button>(Resource.Id.tryAgain_btn).Click += (sender, e) => {
-             //   StartActivity(typeof(GameActivity));
-            //};
+            SetContentView(Resource.Layout.proveIt);
+            FindViewById<Button>(Resource.Id.proveIt_btn).Click += (sender, e) =>
+            {
+                StartActivity(typeof(GameActivity));
+            };
         }
     }
+
 }

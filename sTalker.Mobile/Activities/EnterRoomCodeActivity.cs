@@ -8,20 +8,23 @@ using Android.Views;
 using Android.Widget;
 using sTalker.Activities;
 
-namespace sTalker
+namespace sTalker.Activities
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class EnterRoomCodeActivity : AppCompatActivity
     {
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.enterRoomCode);
 
-            FindViewById<Button>(Resource.Id.enterRoom_btn).Click += (sender, e) => {
-                StartActivity(typeof(GameActivity));
+            EditText text = FindViewById<EditText>(Resource.Id.roomCode);
+
+
+            FindViewById<Button>(Resource.Id.next_btn).Click += (sender, e) => {
+                GameInfo.roomCode = text.Text;      
+                StartActivity(typeof(RegistrationActivity));
             };
         }
     }
