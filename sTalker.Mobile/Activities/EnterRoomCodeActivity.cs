@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
@@ -6,7 +7,10 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using Microsoft.ProjectOxford.Face;
+using Microsoft.ProjectOxford.Face.Contract;
 using sTalker.Activities;
+using sTalker.Notifications;
 
 namespace sTalker.Activities
 {
@@ -22,9 +26,20 @@ namespace sTalker.Activities
             EditText text = FindViewById<EditText>(Resource.Id.roomCode);
 
 
-            FindViewById<Button>(Resource.Id.next_btn).Click += (sender, e) => {
-                GameInfo.roomCode = text.Text;      
-                StartActivity(typeof(RegistrationActivity));
+            FindViewById<Button>(Resource.Id.next_btn).Click += (sender, e) =>
+            {
+                GameInfo.roomCode = text.Text;
+                try
+                {
+                    GameInfo.personGroup = Task.Run(async () =>
+                        await GameInfo.faceServiceClient.GetPersonGroupAsync(text.Text)).Result;
+
+                    StartActivity(typeof(RegistrationActivity));
+                }
+                catch (AggregateException)
+                {
+                    new ToastCreator(this, "Room not found").Run();
+                }
             };
         }
     }

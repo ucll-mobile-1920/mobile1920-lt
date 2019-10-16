@@ -4238,25 +4238,22 @@ namespace sTalker
 			public const int proveIt = 2131427398;
 			
 			// aapt resource value: 0x7F0B0047
-			public const int registerphoto = 2131427399;
+			public const int registration = 2131427399;
 			
 			// aapt resource value: 0x7F0B0048
-			public const int registration = 2131427400;
+			public const int select_dialog_item_material = 2131427400;
 			
 			// aapt resource value: 0x7F0B0049
-			public const int select_dialog_item_material = 2131427401;
+			public const int select_dialog_multichoice_material = 2131427401;
 			
 			// aapt resource value: 0x7F0B004A
-			public const int select_dialog_multichoice_material = 2131427402;
+			public const int select_dialog_singlechoice_material = 2131427402;
 			
 			// aapt resource value: 0x7F0B004B
-			public const int select_dialog_singlechoice_material = 2131427403;
+			public const int support_simple_spinner_dropdown_item = 2131427403;
 			
 			// aapt resource value: 0x7F0B004C
-			public const int support_simple_spinner_dropdown_item = 2131427404;
-			
-			// aapt resource value: 0x7F0B004D
-			public const int tryAgain = 2131427405;
+			public const int tryAgain = 2131427404;
 			
 			static Layout()
 			{

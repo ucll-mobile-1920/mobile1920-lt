@@ -51,10 +51,15 @@ namespace sTalker.Activities
         private void CreateGame(string gameTitle)
         {
             game = new Game(gameTitle, duration);
+
+            GameInfo.faceServiceClient.CreatePersonGroupAsync(game.RoomCode.ToString(), game.Title);
+
             DatabaseReference reference = DataHelper.GetDatabase().GetReference("games");
             reference.Child(game.RoomCode.ToString()).Child("info").Child("title").SetValue(game.Title);
             reference.Child(game.RoomCode.ToString()).Child("info").Child("duration").SetValue(game.Duration);
         }
+
+
     }
 }
 
