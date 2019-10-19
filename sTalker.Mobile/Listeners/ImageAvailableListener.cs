@@ -48,6 +48,7 @@ namespace stalker.Listeners
             }
             else
             {
+                owner.Detected = true;
                 AddNewFace(bytes);
             }
         }
@@ -78,6 +79,7 @@ namespace stalker.Listeners
                 {
                     var result = await GameInfo.faceServiceClient.CreatePersonAsync(GameInfo.personGroup.PersonGroupId, GameInfo.player.UserId, GameInfo.player.Name);
                     var added = await GameInfo.faceServiceClient.AddPersonFaceAsync(GameInfo.personGroup.PersonGroupId, result.PersonId, url);
+
                 }
                 catch (FaceAPIException e)
                 {

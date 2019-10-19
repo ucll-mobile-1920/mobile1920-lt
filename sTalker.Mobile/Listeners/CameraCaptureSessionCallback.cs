@@ -14,7 +14,7 @@ namespace sTalker.Listeners
 
         public override void OnConfigureFailed(CameraCaptureSession session)
         {
-            owner.ShowToast("Failed");
+            owner.ShowToast("Camera launch failed");
         }
 
         public override void OnConfigured(CameraCaptureSession session)

@@ -19,6 +19,7 @@ using Android;
 using sTalker.Listeners;
 using stalker.Listeners;
 using sTalker.Notifications;
+using sTalker.Activities;
 
 namespace sTalker.Fragments
 {
@@ -321,6 +322,10 @@ namespace sTalker.Fragments
             finally
             {
                 mCameraOpenCloseLock.Release();
+                if (Detected)
+                {
+                    activity.StartActivity(typeof(GameActivity));
+                }
             }
         }
 
@@ -335,16 +340,19 @@ namespace sTalker.Fragments
         // Stops the background thread and its {@link Handler}.
         private void StopBackgroundThread()
         {
-            mBackgroundThread.QuitSafely();
-            try
+            if (mBackgroundThread != null)
             {
-                mBackgroundThread.Join();
-                mBackgroundThread = null;
-                mBackgroundHandler = null;
-            }
-            catch (InterruptedException e)
-            {
-                e.PrintStackTrace();
+                mBackgroundThread.QuitSafely();
+                try
+                {
+                    mBackgroundThread.Join();
+                    mBackgroundThread = null;
+                    mBackgroundHandler = null;
+                }
+                catch (InterruptedException e)
+                {
+                    e.PrintStackTrace();
+                }
             }
         }
 
