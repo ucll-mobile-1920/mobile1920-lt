@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\SelfieCameraActivity.cs" />
+    <Compile Include="Activities\UserWaitingActivity.cs" />
     <Compile Include="Fragments\Camera2Fragment.cs" />
     <Compile Include="Listeners\CameraCaptureListener.cs" />
     <Compile Include="Listeners\CameraCaptureSessionCallback.cs" />
@@ -238,6 +239,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\cameraFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\userWaiting.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

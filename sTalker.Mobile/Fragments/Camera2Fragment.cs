@@ -324,7 +324,7 @@ namespace sTalker.Fragments
                 mCameraOpenCloseLock.Release();
                 if (Detected)
                 {
-                    activity.StartActivity(typeof(GameActivity));
+                    activity.StartActivity(typeof(UserWaitingActivity));
                 }
             }
         }
