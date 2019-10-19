@@ -1,71 +1,97 @@
+using Android.Graphics;
 using Android.Media;
+using Firebase.Storage;
 using Java.IO;
 using Java.Lang;
 using Java.Nio;
+using Microsoft.ProjectOxford.Face;
+using Microsoft.ProjectOxford.Face.Contract;
+using sTalker;
 using sTalker.Fragments;
+using sTalker.Helpers;
+using System;
+using System.IO;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace stalker.Listeners
 {
     public class ImageAvailableListener : Java.Lang.Object, ImageReader.IOnImageAvailableListener
     {
-        public ImageAvailableListener(Camera2Fragment fragment, File file)
-        {
-            owner = fragment ?? throw new System.ArgumentNullException("fragment");
-            this.file = file ?? throw new System.ArgumentNullException("file");
-        }
-
-        private readonly File file;
         private readonly Camera2Fragment owner;
 
-        //public File File { get; private set; }
-        //public Camera2BasicFragment Owner { get; private set; }
+        public ImageAvailableListener(Camera2Fragment fragment)
+        {
+            owner = fragment ?? throw new ArgumentNullException("fragment");
+        }
 
         public void OnImageAvailable(ImageReader reader)
         {
-            owner.mBackgroundHandler.Post(new ImageSaver(reader.AcquireNextImage(), file));
+            Image img = reader.AcquireNextImage();
+            ByteBuffer buffer = img.GetPlanes()[0].Buffer;
+            byte[] bytes = new byte[buffer.Remaining()];
+            buffer.Get(bytes);
+            var stream = new MemoryStream(bytes);
+
+            var faces = Task.Run(async () => await GameInfo.faceServiceClient.DetectAsync(stream)).Result;
+
+            if (faces.Length < 1)
+            {
+                //TODO: fix the issue that camera flips taken photos
+                owner.ShowToast("No face detected! Try rotating camera upside-down :D");
+                return;
+            }
+            else if (faces.Length > 1)
+            {
+                owner.ShowToast("More than one face detected! Take a selfie alone!");
+                return;
+            }
+            else
+            {
+                AddNewFace(bytes);
+            }
         }
 
-        // Saves a JPEG {@link Image} into the specified {@link File}.
-        private class ImageSaver : Java.Lang.Object, IRunnable
+        private async void AddNewFace(byte[] bytes)
         {
-            // The JPEG image
-            private Image mImage;
-
-            // The file we save the image into.
-            private File mFile;
-
-            public ImageSaver(Image image, File file)
+            using (var output = new FileOutputStream(owner.mFile))
             {
-                if (image == null)
-                    throw new System.ArgumentNullException("image");
-                if (file == null)
-                    throw new System.ArgumentNullException("file");
-
-                mImage = image;
-                mFile = file;
-            }
-
-            public void Run()
-            {
-                ByteBuffer buffer = mImage.GetPlanes()[0].Buffer;
-                byte[] bytes = new byte[buffer.Remaining()];
-                buffer.Get(bytes);
-                using (var output = new FileOutputStream(mFile))
+                try
                 {
-                    try
-                    {
-                        output.Write(bytes);
-                    }
-                    catch (IOException e)
-                    {
-                        e.PrintStackTrace();
-                    }
-                    finally
-                    {
-                        mImage.Close();
-                    }
+                    output.Write(bytes);
+                }
+                catch (Java.IO.IOException e)
+                {
+                    e.PrintStackTrace();
                 }
             }
+
+            using(var stream = System.IO.File.Open(owner.mFile.AbsolutePath, FileMode.Open))
+            {
+                var imageName = $"faces/{GameInfo.personGroup.PersonGroupId}-{GameInfo.player.UserId}.jpg";
+
+                var storage = DataHelper.GetStorage();
+                await storage.Child(imageName).PutAsync(stream);
+                var url = await storage.Child(imageName).GetDownloadUrlAsync();
+
+                try
+                {
+                    var result = await GameInfo.faceServiceClient.CreatePersonAsync(GameInfo.personGroup.PersonGroupId, GameInfo.player.UserId, GameInfo.player.Name);
+                    var added = await GameInfo.faceServiceClient.AddPersonFaceAsync(GameInfo.personGroup.PersonGroupId, result.PersonId, url);
+                }
+                catch (FaceAPIException e)
+                {
+
+                }
+                finally
+                {
+                    System.IO.File.Delete(owner.mFile.AbsolutePath);
+                }
+
+            }
+
         }
+
+
     }
 }

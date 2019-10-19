@@ -15,6 +15,7 @@ namespace sTalker.Activities
 	[Activity (Label = "SelfieCameraActivity", ScreenOrientation = ScreenOrientation.Portrait)]
 	public class SelfieCameraActivity : Activity
 	{
+
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);

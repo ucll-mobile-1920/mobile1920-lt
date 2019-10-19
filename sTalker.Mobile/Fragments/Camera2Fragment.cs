@@ -55,6 +55,8 @@ namespace sTalker.Fragments
         Activity activity;
         private bool faceFront;
 
+        public bool Detected { get; set; }
+
 
         public Camera2Fragment(Activity activity, Context context)
         {
@@ -151,7 +153,7 @@ namespace sTalker.Fragments
             base.OnActivityCreated(savedInstanceState);
             mFile = new File(Activity.GetExternalFilesDir(null), "pic.jpg");
             mCaptureCallback = new CameraCaptureListener(this);
-            mOnImageAvailableListener = new ImageAvailableListener(this,mFile);
+            mOnImageAvailableListener = new ImageAvailableListener(this);
         }
 
         public override void OnResume()
@@ -479,6 +481,10 @@ namespace sTalker.Fragments
             catch (CameraAccessException e)
             {
                 e.PrintStackTrace();
+            }
+            catch (NullReferenceException e)
+            {
+                //TODO: handle
             }
         }
 

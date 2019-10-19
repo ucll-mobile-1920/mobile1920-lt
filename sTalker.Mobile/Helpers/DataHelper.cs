@@ -2,11 +2,14 @@
 using Android.App;
 using Firebase;
 using Firebase.Database;
+using Firebase.Storage;
 
 namespace sTalker.Helpers
 {
     public static class DataHelper
     {
+        private static FirebaseStorage storage = new FirebaseStorage("stalker-2019.appspot.com");
+
         public static FirebaseDatabase GetDatabase()
         {
             var app = FirebaseApp.InitializeApp(Application.Context);
@@ -29,6 +32,11 @@ namespace sTalker.Helpers
                 database = FirebaseDatabase.GetInstance(app);
             }
             return database;
+        }
+
+        public static FirebaseStorage GetStorage()
+        {
+            return storage;
         }
     }
 }

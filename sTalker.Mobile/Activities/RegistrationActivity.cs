@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -10,6 +12,7 @@ using Android.Widget;
 using Firebase.Database;
 using sTalker.Activities;
 using sTalker.Helpers;
+using sTalker.Notifications;
 using sTalker.Shared.Models;
 
 namespace sTalker.Activities
@@ -19,33 +22,56 @@ namespace sTalker.Activities
     {
         Player player;
         string name;
-        List<string> hints;
+        string[] hints;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.registration);
-            hints = new List<string>();
-            name = FindViewById<EditText>(Resource.Id.name).Text;
-            hints.Add(FindViewById<EditText>(Resource.Id.hint1).Text);
-            hints.Add(FindViewById<EditText>(Resource.Id.hint2).Text);
-            hints.Add(FindViewById<EditText>(Resource.Id.hint3).Text);
-            hints.Add(FindViewById<EditText>(Resource.Id.hint4).Text);
-            hints.Add(FindViewById<EditText>(Resource.Id.hint5).Text);
+            hints = new string[5];
 
 
             FindViewById<Button>(Resource.Id.next_btn).Click += (sender, e) => {
+
+                name = FindViewById<EditText>(Resource.Id.name).Text;
+                hints[0]=FindViewById<EditText>(Resource.Id.hint1).Text;
+                hints[1]=FindViewById<EditText>(Resource.Id.hint2).Text;
+                hints[2]=FindViewById<EditText>(Resource.Id.hint3).Text;
+                hints[3]=FindViewById<EditText>(Resource.Id.hint4).Text;
+                hints[4]=FindViewById<EditText>(Resource.Id.hint5).Text;
+
+                //TODO: remove when needed to get actual input
+                //Test();
+
+                if (string.IsNullOrEmpty(name) || hints.Where(x=>string.IsNullOrEmpty(x)).Count() != 0)
+                {
+                    new ToastCreator(this, "Please fill in all fields!").Run();
+                    return;
+                }
+                                
                 StartActivity(typeof(SelfieCameraActivity));
-                player = new Player(name, hints);
-                DatabaseReference reference = DataHelper.GetDatabase().GetReference("games");
-                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("name").SetValue(FindViewById<EditText>(Resource.Id.name).Text);
-                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint1").SetValue(FindViewById<EditText>(Resource.Id.hint1).Text);
-                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint2").SetValue(FindViewById<EditText>(Resource.Id.hint2).Text);
-                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint3").SetValue(FindViewById<EditText>(Resource.Id.hint3).Text);
-                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint4").SetValue(FindViewById<EditText>(Resource.Id.hint4).Text);
-                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint5").SetValue(FindViewById<EditText>(Resource.Id.hint5).Text);
+                player = new Player(name, hints.ToList());
+                GameInfo.player = player;
+
+                DatabaseReference reference = DataHelper.GetDatabase().GetReference("games"); 
+                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("name").SetValue(name);
+                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint1").SetValue(hints[0]);
+                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint2").SetValue(hints[1]);
+                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint3").SetValue(hints[2]);
+                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint4").SetValue(hints[3]);
+                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint5").SetValue(hints[4]);
             };
+        }
+
+        public void Test()
+        {
+            name = "test";
+            hints[0] = "hint1";
+            hints[1] = "gint2";
+            hints[2] = "gdg";
+            hints[3] = "fsdfsf";
+            hints[4] = "fdfdf";
         }
     }
 }
