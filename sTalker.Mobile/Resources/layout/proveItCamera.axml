@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+	android:background="#01908A">
+  
+    <FrameLayout
+        android:id="@+id/proveIt_camera_preview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+    </FrameLayout>
+
+  <Button
+		android:background="@drawable/circle_blue"
+		android:layout_width="240dp"
+        android:layout_height="wrap_content"
+		android:layout_margin = "15sp"
+        android:text="Prove It!"
+		android:textColor="#01908A"
+		android:textSize="18sp"
+		android:gravity="center"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:id="@+id/proveItButton" />
+  
+</RelativeLayout>

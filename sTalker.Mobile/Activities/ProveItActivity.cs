@@ -19,11 +19,15 @@ namespace sTalker.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.proveIt);
-            FindViewById<Button>(Resource.Id.proveIt_btn).Click += (sender, e) =>
-            {
-                StartActivity(typeof(GameActivity));
-            };
+
+            SetContentView(Resource.Layout.selfieCameraBase);
+
+            FragmentManager.BeginTransaction()
+               .Replace(Resource.Id.content_frame, 
+                    new CameraFragment(this,Resource.Layout.proveItCamera, Resource.Id.proveItButton, Resource.Id.proveIt_camera_preview, false))
+               .Commit();
+
+
         }
     }
 

@@ -20,6 +20,11 @@ namespace sTalker.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.userWaiting);
 
+            FindViewById<Button>(Resource.Id.test_btn).Click += (sender, e) =>
+            {
+                StartActivity(typeof(GameActivity));
+            };
+
         }
     }
 }

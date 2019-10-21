@@ -62,13 +62,16 @@
   <ItemGroup>
     <Compile Include="Activities\SelfieCameraActivity.cs" />
     <Compile Include="Activities\UserWaitingActivity.cs" />
+    <Compile Include="Fragments\CameraFragment.cs" />
+    <Compile Include="Listeners\CameraPictureCallBack.cs" />
+    <Compile Include="Listeners\CameraPreview.cs" />
     <Compile Include="Fragments\Camera2Fragment.cs" />
-    <Compile Include="Listeners\CameraCaptureListener.cs" />
-    <Compile Include="Listeners\CameraCaptureSessionCallback.cs" />
-    <Compile Include="Listeners\CameraCaptureStillPictureSessionCallback.cs" />
-    <Compile Include="Listeners\CameraStateListener.cs" />
-    <Compile Include="Listeners\ImageAvailableListener.cs" />
-    <Compile Include="Listeners\SurfaceTextureListener.cs" />
+    <Compile Include="Listeners\Camera2\CameraCaptureListener.cs" />
+    <Compile Include="Listeners\Camera2\CameraCaptureSessionCallback.cs" />
+    <Compile Include="Listeners\Camera2\CameraCaptureStillPictureSessionCallback.cs" />
+    <Compile Include="Listeners\Camera2\CameraStateListener.cs" />
+    <Compile Include="Listeners\Camera2\ImageAvailableListener.cs" />
+    <Compile Include="Listeners\Camera2\SurfaceTextureListener.cs" />
     <Compile Include="Notifications\ErrorDialogCreator.cs" />
     <Compile Include="Notifications\ToastCreator.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -195,7 +198,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\proveIt.axml">
+    <AndroidResource Include="Resources\layout\proveItCamera.axml">
       <SubType>
       </SubType>
       <Generator>
@@ -244,6 +247,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\userWaiting.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\selfieCameraBase.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\selfieCamera.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

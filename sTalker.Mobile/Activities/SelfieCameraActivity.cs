@@ -9,6 +9,8 @@ using Android.OS;
 using Android.Content.PM;
 using Android;
 using sTalker.Fragments;
+using System.Threading.Tasks;
+using Android.Support.V4.App;
 
 namespace sTalker.Activities
 {
@@ -19,17 +21,23 @@ namespace sTalker.Activities
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-			SetContentView (Resource.Layout.cameraWindowBase);
 
-            //FindViewById<Button>(Resource.Id.takeSelfie_btn).Click += (sender, e) =>
-            //{
-            //    StartActivity(typeof(GameActivity));
-            //};
+            SetContentView(Resource.Layout.selfieCameraBase);
 
-            if (bundle == null) {
-				FragmentManager.BeginTransaction ().Replace (Resource.Id.container, Camera2Fragment.NewInstance (this,this,true)).Commit ();
-			}
-		}
+            FragmentManager.BeginTransaction()
+               .Replace(Resource.Id.content_frame, 
+                    new CameraFragment(this,Resource.Layout.selfieCamera, Resource.Id.selfie_Button, Resource.Id.selfie_camera_preview))
+               .Commit();
+
+
+            /*Use with camera2fragment*/
+
+            //SetContentView (Resource.Layout.cameraWindowBase);
+
+            //         if (bundle == null) {
+            //             FragmentManager.BeginTransaction ().Replace (Resource.Id.container, Camera2Fragment.NewInstance (this,this,false)).Commit ();
+            //}
+        }
 	}
 }
 
