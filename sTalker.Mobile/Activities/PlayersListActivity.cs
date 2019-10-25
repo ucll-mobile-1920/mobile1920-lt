@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Android.App;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Widget;
 using Android.Support.V7.App;
-using Android.Util;
-using Android.Views;
 using Android.Widget;
-using Firebase.Database;
 using Firebase.Database.Query;
-using sTalker.Activities;
 using sTalker.Adapters;
 using sTalker.Helpers;
-using sTalker.Listeners;
 using sTalker.Shared.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace sTalker.Activities
 {

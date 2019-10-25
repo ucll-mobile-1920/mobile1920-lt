@@ -1,23 +1,12 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Android.App;
 using Android.Content;
 using Android.Hardware;
-using Android.Net;
-using Android.OS;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
-using Android.Widget;
 using Java.IO;
 using Microsoft.ProjectOxford.Face;
 using sTalker.Activities;
-using sTalker.Helpers;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace sTalker
 {

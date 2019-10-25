@@ -1,10 +1,10 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Hardware;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using sTalker.Notifications;
+using System;
 
 namespace sTalker
 {

@@ -1,7 +1,6 @@
 ﻿using Microsoft.ProjectOxford.Face;
 using Microsoft.ProjectOxford.Face.Contract;
 using sTalker.Shared.Models;
-using System;
 namespace sTalker
 {
     public static class GameInfo

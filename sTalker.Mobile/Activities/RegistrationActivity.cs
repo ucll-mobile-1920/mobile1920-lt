@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Widget;
 using Android.Support.V7.App;
-using Android.Views;
 using Android.Widget;
-using Firebase.Database;
-using sTalker.Activities;
-using sTalker.Helpers;
 using sTalker.Notifications;
 using sTalker.Shared.Models;
+using System.Linq;
 
 namespace sTalker.Activities
 {

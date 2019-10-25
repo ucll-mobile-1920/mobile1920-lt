@@ -1,23 +1,14 @@
-﻿using System;
-
+﻿
 using Android.App;
-using Android.Content;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Android.OS;
 using Android.Content.PM;
-using Android;
-using sTalker.Fragments;
-using System.Threading.Tasks;
+using Android.OS;
 using Android.Support.V4.App;
-using Firebase.Database;
-using sTalker.Helpers;
 using Firebase.Database.Query;
+using sTalker.Helpers;
 
 namespace sTalker.Activities
 {
-	[Activity (Label = "SelfieCameraActivity", ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity (Label = "SelfieCameraActivity", ScreenOrientation = ScreenOrientation.Portrait)]
 	public class SelfieCameraActivity : Activity
 	{
         public CameraFragment Camera { get; set; }

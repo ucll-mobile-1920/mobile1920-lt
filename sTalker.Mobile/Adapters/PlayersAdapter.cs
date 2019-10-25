@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Android.Content;
+﻿using Android.Content;
 using Android.Views;
 using Android.Widget;
-using Java.Lang;
 using sTalker.Shared.Models;
+using System.Collections.Generic;
 
 namespace sTalker.Adapters
 {
@@ -42,7 +40,7 @@ namespace sTalker.Adapters
             {
                 if (row == null)
                 {
-                    row = LayoutInflater.From(context).Inflate(Resource.Layout.playerRow, null, false);
+                    row = LayoutInflater.From(context).Inflate(Resource.Layout.playersList, null, false);
                 }
                 TextView txtName = row.FindViewById<TextView>(Resource.Id.Name);
                 txtName.Text = list[position].Name;

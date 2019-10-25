@@ -1,8 +1,4 @@
-﻿using System;
-using Android.App;
-using Firebase;
-using Firebase.Database;
-using Firebase.Storage;
+﻿using Firebase.Database;
 
 namespace sTalker.Helpers
 {

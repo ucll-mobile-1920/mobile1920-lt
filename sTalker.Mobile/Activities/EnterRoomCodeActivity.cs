@@ -1,19 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Android.App;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Widget;
 using Android.Support.V7.App;
-using Android.Views;
 using Android.Widget;
-using Microsoft.ProjectOxford.Face;
-using Microsoft.ProjectOxford.Face.Contract;
-using sTalker.Activities;
-using sTalker.Helpers;
 using sTalker.Notifications;
-using sTalker.Shared.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace sTalker.Activities
 {

@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Android.App;
+﻿using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
-using Firebase.Database;
-using Java.Util;
-using Newtonsoft.Json;
-using sTalker.Helpers;
-using sTalker.Listeners;
 using sTalker.Shared.Models;
 
 namespace sTalker.Activities
 {
-    
+
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
