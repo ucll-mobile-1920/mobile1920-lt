@@ -18,6 +18,7 @@ namespace sTalker
         private int button;
         private int preview;
         private bool facedFront;
+        public EventHandler FaceAdded;
 
         public Activity OwnerActivity { get; }
 
@@ -58,7 +59,9 @@ namespace sTalker
             try
             {
                 camera.StartPreview();
-                camera.TakePicture(null, null, new CameraPictureCallBack(Activity,this));
+                var callback = new CameraPictureCallBack(Activity, this);
+                callback.FaceAdded += (x,y)=>FaceAdded?.Invoke(x, y);
+                camera.TakePicture(null, null, callback);
             }
             catch
             {

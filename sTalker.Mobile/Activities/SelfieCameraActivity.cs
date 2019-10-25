@@ -11,12 +11,16 @@ using Android;
 using sTalker.Fragments;
 using System.Threading.Tasks;
 using Android.Support.V4.App;
+using Firebase.Database;
+using sTalker.Helpers;
+using Firebase.Database.Query;
 
 namespace sTalker.Activities
 {
 	[Activity (Label = "SelfieCameraActivity", ScreenOrientation = ScreenOrientation.Portrait)]
 	public class SelfieCameraActivity : Activity
 	{
+        public CameraFragment Camera { get; set; }
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -24,19 +28,18 @@ namespace sTalker.Activities
 
             SetContentView(Resource.Layout.selfieCameraBase);
 
+            Camera = new CameraFragment(this, Resource.Layout.selfieCamera, Resource.Id.selfie_Button, Resource.Id.selfie_camera_preview);
+
+            Camera.FaceAdded += (x,y)=>SaveNewPlayer();
+
             FragmentManager.BeginTransaction()
-               .Replace(Resource.Id.content_frame, 
-                    new CameraFragment(this,Resource.Layout.selfieCamera, Resource.Id.selfie_Button, Resource.Id.selfie_camera_preview))
+               .Replace(Resource.Id.content_frame, Camera)
                .Commit();
+        }
 
-
-            /*Use with camera2fragment*/
-
-            //SetContentView (Resource.Layout.cameraWindowBase);
-
-            //         if (bundle == null) {
-            //             FragmentManager.BeginTransaction ().Replace (Resource.Id.container, Camera2Fragment.NewInstance (this,this,false)).Commit ();
-            //}
+        private async void SaveNewPlayer()
+        {
+            await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Players/{GameInfo.player.UserId}").PutAsync(GameInfo.player);
         }
 	}
 }

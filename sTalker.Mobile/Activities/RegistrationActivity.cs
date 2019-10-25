@@ -49,18 +49,11 @@ namespace sTalker.Activities
                     new ToastCreator(this, "Please fill in all fields!").Run();
                     return;
                 }
-                                
-                StartActivity(typeof(SelfieCameraActivity));
+
                 player = new Player(name, hints.ToList());
                 GameInfo.player = player;
 
-                DatabaseReference reference = DataHelper.GetDatabase().GetReference("games"); 
-                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("name").SetValue(name);
-                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint1").SetValue(hints[0]);
-                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint2").SetValue(hints[1]);
-                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint3").SetValue(hints[2]);
-                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint4").SetValue(hints[3]);
-                reference.Child(GameInfo.roomCode).Child("players").Child(player.UserId.ToString()).Child("hint5").SetValue(hints[4]);
+                StartActivity(typeof(SelfieCameraActivity));
             };
         }
 

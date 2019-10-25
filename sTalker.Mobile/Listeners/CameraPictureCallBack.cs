@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace sTalker
     {
         private Context context;
         private CameraFragment cameraFragment;
+        private Camera camera;
+        public EventHandler FaceAdded;
 
         public CameraPictureCallBack(Context cont, CameraFragment cameraFragment)
         {
@@ -33,6 +36,7 @@ namespace sTalker
 
         public void OnPictureTaken(byte[] data, Camera camera)
         {
+            this.camera = camera;
             try
             {
                 var stream = new MemoryStream(data); 
@@ -40,48 +44,93 @@ namespace sTalker
 
                 if (faces.Length < 1)
                 {
-                    //TODO: if occurs, fix the issue that camera flips taken photos
+                    //TODO: if occurs, fix the issue that camera sometimes flips taken photos
                     cameraFragment.ShowToast("No face detected!");
                 }
                 else if (faces.Length > 1)
                 {
-                    cameraFragment.ShowToast("More than one face detected! Take a selfie alone!");
+                    cameraFragment.ShowToast("More than one face detected!");
                 }
                 else
                 {
-
-                    AddNewFace(data);
-                    camera.StopPreview();
-                    camera.Release();
-                    cameraFragment.OwnerActivity.StartActivity(typeof(UserWaitingActivity));
-                    return;
+                    if (context.GetType() == typeof(SelfieCameraActivity))
+                    {
+                        AddNewFace(data);
+                        return;
+                    } else
+                    {
+                        bool success = Task.Run(async()=> await Recognize(data,new Guid[]{ faces[0].FaceId })).Result;
+                        if (success)
+                        {
+                            camera.StopPreview();
+                            camera.Release();
+                            cameraFragment.OwnerActivity.StartActivity(typeof(GameActivity));
+                            return;
+                        }
+                    }
                 }
 
                 //We start the camera preview back since after taking a picture it freezes
                 camera.StartPreview();
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 cameraFragment.ShowToast($"Unhandled error: {e.Message}");
             }
         }
 
-
-        private async void AddNewFace(byte[] bytes)
+        private async void AddNewFace(byte[] data)
         {
             try
             {
-                var result = await GameInfo.faceServiceClient.CreatePersonAsync(GameInfo.personGroup.PersonGroupId, 
+                var result = await GameInfo.faceServiceClient.CreatePersonAsync(GameInfo.personGroup.PersonGroupId,
                     GameInfo.player.UserId, GameInfo.player.Name);
+                               
+                var added = await GameInfo.faceServiceClient.AddPersonFaceAsync(GameInfo.personGroup.PersonGroupId,
+                    result.PersonId, new MemoryStream(data));
 
-                var added = await GameInfo.faceServiceClient.AddPersonFaceAsync(GameInfo.personGroup.PersonGroupId, 
-                    result.PersonId, new MemoryStream(bytes));
+                GameInfo.player.RecognitionServiceId = result.PersonId;
             }
             catch (FaceAPIException e)
             {
                 cameraFragment.ShowToast("Face detection service failed.");
             }
+            camera.StopPreview();
+            camera.Release();
+            cameraFragment.OwnerActivity.StartActivity(typeof(UserWaitingActivity));
+            FaceAdded?.Invoke(this,EventArgs.Empty);
         }
+
+        private async Task<bool> Recognize(byte[] data, Guid[] faceIds)
+        {
+            try
+            {
+                await GameInfo.faceServiceClient.TrainPersonGroupAsync(GameInfo.personGroup.PersonGroupId);
+                var result = await GameInfo.faceServiceClient.IdentifyAsync(GameInfo.personGroup.PersonGroupId, faceIds,1);
+
+                if (result?[0].Candidates?[0].PersonId == GameInfo.player.playerToFind.RecognitionServiceId)
+                {
+                    //TODO: Handle points and new person to find
+                    cameraFragment.ShowToast($"SUCCESS");
+                    return true;
+                }
+                else
+                {
+                    //TODO: Handle points substraction
+                    cameraFragment.ShowToast("YOU FAILED!");
+                    return false;
+                }
+            }
+            catch (FaceAPIException e)
+            {
+                cameraFragment.ShowToast("Face recognition service failed. Try again.");
+                return false;
+            }
+
+        }
+
+
+
 
 
 
@@ -113,14 +162,14 @@ namespace sTalker
                 {
                     var imageName = $"faces/{GameInfo.personGroup.PersonGroupId}-{GameInfo.player.UserId}.jpg";
 
-                    var storage = DataHelper.GetStorage();
-                    await storage.Child(imageName).PutAsync(stream);
-                    var url = await storage.Child(imageName).GetDownloadUrlAsync();
+                    //var storage = DataHelper.GetStorage();
+                    //await storage.Child(imageName).PutAsync(stream);
+                    //var url = await storage.Child(imageName).GetDownloadUrlAsync();
 
                     try
                     {
                         var result = await GameInfo.faceServiceClient.CreatePersonAsync(GameInfo.personGroup.PersonGroupId, GameInfo.player.UserId, GameInfo.player.Name);
-                        var added = await GameInfo.faceServiceClient.AddPersonFaceAsync(GameInfo.personGroup.PersonGroupId, result.PersonId, url);
+                        //var added = await GameInfo.faceServiceClient.AddPersonFaceAsync(GameInfo.personGroup.PersonGroupId, result.PersonId, url);
 
                     }
                     catch (FaceAPIException e)

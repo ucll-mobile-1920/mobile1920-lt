@@ -68,7 +68,6 @@ namespace sTalker
 
         public void SurfaceDestroyed(ISurfaceHolder holder)
         {
-           
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
@@ -10,7 +11,9 @@ using Android.Widget;
 using Microsoft.ProjectOxford.Face;
 using Microsoft.ProjectOxford.Face.Contract;
 using sTalker.Activities;
+using sTalker.Helpers;
 using sTalker.Notifications;
+using sTalker.Shared.Models;
 
 namespace sTalker.Activities
 {
@@ -26,7 +29,7 @@ namespace sTalker.Activities
             EditText text = FindViewById<EditText>(Resource.Id.roomCode);
 
 
-            FindViewById<Button>(Resource.Id.next_btn).Click += (sender, e) =>
+            FindViewById<Button>(Resource.Id.next_btn).Click += async (sender, e) =>
             {
                 GameInfo.roomCode = text.Text;
                 try

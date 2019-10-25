@@ -20,34 +20,22 @@ namespace sTalker.Activities
     public class MainActivity : AppCompatActivity
     {
         public static Player player;
-        GameListener gameListener;
         
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.main);
 
-            FindViewById<Button>(Resource.Id.newGame_btn).Click += (sender, e) => {
+            FindViewById<Button>(Resource.Id.newGame_btn).Click += (sender, e) =>
+            {
                 StartActivity(typeof(CreateGameActivity));
             };
 
-            FindViewById<Button>(Resource.Id.joinRoom_btn).Click += (sender, e) => {
+            FindViewById<Button>(Resource.Id.joinRoom_btn).Click += (sender, e) =>
+            {
                 StartActivity(typeof(EnterRoomCodeActivity));
             };
-        }
-
-        public void RetriveData()
-        {
-            gameListener = new GameListener();
-            gameListener.Create();
-            gameListener.DataRetrieved += GameListener_GamesRetrieved;
-        }
-
-        private void GameListener_GamesRetrieved(object sender, GameListener.GameDataEventArgs e)
-        {
-            //ga
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

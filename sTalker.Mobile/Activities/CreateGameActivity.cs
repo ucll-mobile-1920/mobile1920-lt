@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
@@ -6,6 +7,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Widget;
 using Firebase.Database;
+using Firebase.Database.Query;
 using Newtonsoft.Json;
 using sTalker.Helpers;
 using sTalker.Shared.Models;
@@ -16,7 +18,6 @@ namespace sTalker.Activities
     public class CreateGameActivity : AppCompatActivity
     {
         EditText title;
-        public static Game game;
         int duration;
         SeekBar seekBar;
         TextView textView;
@@ -48,15 +49,15 @@ namespace sTalker.Activities
 
         }
 
-        private void CreateGame(string gameTitle)
+        private async void CreateGame(string gameTitle)
         {
-            game = new Game(gameTitle, duration);
+            var game = new Game(gameTitle, duration);
 
-            GameInfo.faceServiceClient.CreatePersonGroupAsync(game.RoomCode.ToString(), game.Title);
+            await GameInfo.faceServiceClient.CreatePersonGroupAsync(game.RoomCode.ToString(), game.Title);
 
-            DatabaseReference reference = DataHelper.GetDatabase().GetReference("games");
-            reference.Child(game.RoomCode.ToString()).Child("info").Child("title").SetValue(game.Title);
-            reference.Child(game.RoomCode.ToString()).Child("info").Child("duration").SetValue(game.Duration);
+            await DataHelper.GetFirebase().Child($"Games/{game.RoomCode}").PutAsync(game);
+            await DataHelper.GetFirebase().Child($"Games/{game.RoomCode}/Players/admin").PutAsync(new Player("Admin", new List<string>(), true));
+
         }
 
 

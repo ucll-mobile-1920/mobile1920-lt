@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Firebase.Database;
+using Firebase.Database.Query;
 using sTalker.Activities;
 using sTalker.Adapters;
 using sTalker.Helpers;
@@ -20,54 +23,49 @@ namespace sTalker.Activities
     public class PlayersListActivity : AppCompatActivity
     {
         private ListView playersListView;
-        private List<Player> list;
+        private List<Player> registeredPlayers;
         PlayersAdapter adapter;
-        DateTime now;
-        PlayersListener playersListener;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.playersList);
 
-            FindViewById<Button>(Resource.Id.letsTalk_btn).Click += (sender, e) => {
-                now = DateTime.Now;
-                DatabaseReference reference = DataHelper.GetDatabase().GetReference("games");
-                reference.Child(GameInfo.roomCode).Child("info").Child("time").SetValue(now.ToString());
+            DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Players").AsObservable<Player>().Subscribe(x => UpdatePlayers(x.Object));
+
+            FindViewById<Button>(Resource.Id.letsTalk_btn).Click += async (sender, e) => {
+                await SetGameStart();
                 StartActivity(typeof(LivePointsActivity));
             };
 
-            list = new List<Player>();
-            
-
-            FindViewById<TextView>(Resource.Id.title).Text = GameInfo.title;
+            FindViewById<TextView>(Resource.Id.playerListTitle).Text = GameInfo.title;
             FindViewById<TextView>(Resource.Id.roomCode).Text = GameInfo.roomCode;
-            //RetrieveData();
+        }
+        
+
+        private void UpdatePlayers(Player player)
+        {
+            //TODO: update listview with new player (passed as parameter to this method)
+        }
+
+        private async Task SetGameStart()
+        {
+           await GameHelper.AssignPlayersToFind(GameInfo.roomCode);
+
+           await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Status/0").PutAsync(GameStatus.STARTED);
         }
 
         private void PlayersListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            var select = list[e.Position].Name;
-            Android.Widget.Toast.MakeText(this, select, Android.Widget.ToastLength.Long).Show();
+            var select = registeredPlayers[e.Position].Name;
+            Toast.MakeText(this, select, ToastLength.Long).Show();
         }
 
-        public void RetrieveData()
-        {
-            playersListener = new PlayersListener();
-            playersListener.Create();
-            playersListener.DataRetrieved += PlayersListener_DataRetrieved;
-        }
-
-        private void PlayersListener_DataRetrieved(object sender, PlayersListener.PlayerDataEventArgs e)
-        {
-            list = e.Players;
-            SetupRecyClerView();
-        }
 
         private void SetupRecyClerView()
         {
-            playersListView = FindViewById<ListView>(Resource.Id.list);
-            adapter = new PlayersAdapter(this, list);
+            playersListView = FindViewById<ListView>(Resource.Id.playersList);
+            adapter = new PlayersAdapter(this, registeredPlayers);
             playersListView.Adapter = adapter;
             playersListView.ItemClick += PlayersListView_ItemClick;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace sTalker.Shared.Models
@@ -13,17 +14,22 @@ namespace sTalker.Shared.Models
         public int points;
         public Player playerToFind;
 
+        //used when identifying faces
+        public Guid RecognitionServiceId { get; set; }
+
         public Player()
         {
 
         }
 
-        public Player(string Name, List<string> hints)
+        public Player(string Name, List<string> hints, bool isAdmin = false)
         {
             Random random = new Random();
             UserId = random.Next(10, 99).ToString();
             this.Name = Name;
             this.hints = hints;
+            this.isAdmin = isAdmin;
         }
+
     }
 }
