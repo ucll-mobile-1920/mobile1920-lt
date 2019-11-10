@@ -85,7 +85,6 @@
     <Compile Include="Activities\PlayersListActivity.cs" />
     <Compile Include="Adapters\PlayersAdapter.cs" />
     <Compile Include="Activities\GameActivity.cs" />
-    <Compile Include="Activities\TryAgainActivity.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="GameInfo.cs" />
     <Compile Include="Activities\ProveItActivity.cs" />
