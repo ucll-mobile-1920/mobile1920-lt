@@ -40,10 +40,11 @@ namespace sTalker.Activities
             
         }
 
-        public async void FillPlayerData()
+        public void FillPlayerData()
         {
-            var player = await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Players/{GameInfo.player.UserId}/playerToFind")
-                .OnceSingleAsync<Player>();
+            var player = Task.Run(async()=>await DataHelper.GetFirebase()
+                .Child($"Games/{GameInfo.roomCode}/Players/{GameInfo.player.UserId}/playerToFind")
+                .OnceSingleAsync<Player>()).Result;
             GameInfo.player.playerToFind = player;
             try
             {

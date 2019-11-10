@@ -1,6 +1,10 @@
-﻿using Android.App;
+﻿using Android;
+using Android.App;
+using Android.Content.PM;
 using Android.Hardware;
 using Android.OS;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using sTalker.Notifications;
@@ -8,7 +12,7 @@ using System;
 
 namespace sTalker
 {
-    public class CameraFragment : Fragment
+    public class CameraFragment : Android.App.Fragment
     {
         private Camera camera;
         private CameraPreview cameraPreview;
@@ -101,6 +105,29 @@ namespace sTalker
         /// </summary>
         private Camera SetUpCamera()
         {
+            int MY_PERMISSIONS_REQUEST_Camera = 101;
+            if (ContextCompat.CheckSelfPermission(OwnerActivity,
+                            Manifest.Permission.Camera)
+                    != Permission.Granted)
+            {
+
+                // Should we show an explanation?
+                if (ActivityCompat.ShouldShowRequestPermissionRationale(OwnerActivity,
+                        Manifest.Permission.Camera))
+                {
+
+                    // Show an expanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+
+                }
+                else
+                {
+                    ActivityCompat.RequestPermissions(OwnerActivity,
+                            new String[] { Manifest.Permission.Camera },
+                            MY_PERMISSIONS_REQUEST_Camera);
+                }
+            }
             Camera camera = null;
             try
             {

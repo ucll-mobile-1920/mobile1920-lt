@@ -46,6 +46,8 @@ namespace sTalker.Activities
            await GameHelper.AssignPlayersToFind(GameInfo.roomCode);
 
            await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Status/0").PutAsync(GameStatus.STARTED);
+
+           await GameInfo.faceServiceClient.TrainPersonGroupAsync(GameInfo.personGroup.PersonGroupId);
         }
 
         private void PlayersListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)

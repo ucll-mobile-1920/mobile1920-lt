@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace sTalker.Activities
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar")]
     public class CreateGameActivity : AppCompatActivity
     {
         EditText title;

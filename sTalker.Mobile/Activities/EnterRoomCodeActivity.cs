@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace sTalker.Activities
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar")]
     public class EnterRoomCodeActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

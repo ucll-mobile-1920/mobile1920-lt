@@ -94,10 +94,10 @@ namespace sTalker
         {
             try
             {
-                await GameInfo.faceServiceClient.TrainPersonGroupAsync(GameInfo.personGroup.PersonGroupId);
-                var result = await GameInfo.faceServiceClient.IdentifyAsync(GameInfo.personGroup.PersonGroupId, faceIds,1);
+                var result = Task.Run(async()=>await GameInfo.faceServiceClient.IdentifyAsync(GameInfo.personGroup.PersonGroupId, faceIds,1)).Result;
 
-                if (result?[0].Candidates?[0].PersonId == GameInfo.player.playerToFind.RecognitionServiceId)
+                if (result?[0].Candidates.Length != 0 && 
+                    result?[0].Candidates?[0].PersonId == GameInfo.player.playerToFind.RecognitionServiceId)
                 {
                     //TODO: Handle points and new person to find
                     cameraFragment.ShowToast($"SUCCESS");
@@ -113,6 +113,11 @@ namespace sTalker
             catch (FaceAPIException e)
             {
                 cameraFragment.ShowToast("Face recognition service failed. Try again.");
+                return false;
+            }
+            catch(Exception e)
+            {
+                cameraFragment.ShowToast(e.Message);
                 return false;
             }
 

@@ -16,7 +16,7 @@ namespace sTalker
         public CameraPreview(Context context, Android.Hardware.Camera camera) : base(context)
         {
             this.camera = camera;
-            this.camera.SetDisplayOrientation(90);
+            this.camera.SetDisplayOrientation(90); 
 
             //Surface holder callback is set so theat SurfaceChanged, Created, destroy... 
             //Could be called from here.
