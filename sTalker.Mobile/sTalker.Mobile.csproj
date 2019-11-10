@@ -67,6 +67,7 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\ResultsActivity.cs" />
     <Compile Include="Activities\SelfieCameraActivity.cs" />
     <Compile Include="Activities\UserWaitingActivity.cs" />
     <Compile Include="Fragments\CameraFragment.cs" />
@@ -256,6 +257,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\selfieCamera.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\results.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

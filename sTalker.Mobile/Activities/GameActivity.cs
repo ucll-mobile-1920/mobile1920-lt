@@ -6,12 +6,18 @@ using sTalker.Shared.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace sTalker.Activities
 {
     [Activity(Label = "GameActivity")]
     public class GameActivity : Activity
     {
+        private int duration;
+        private int timeLeft;
+
+        private TextView gameTimer;
+
         private EditText hint1;
         private EditText hint2;
         private EditText hint3;
@@ -22,6 +28,8 @@ namespace sTalker.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.game);
+
+            gameTimer = FindViewById<TextView>(Resource.Id.game_timer);
 
             hint1 = FindViewById<EditText>(Resource.Id.hint1);
             hint2 = FindViewById<EditText>(Resource.Id.hint2);
@@ -37,6 +45,7 @@ namespace sTalker.Activities
             };
 
             FillPlayerData();
+            SetTimer();
             
         }
 
@@ -56,6 +65,33 @@ namespace sTalker.Activities
             } catch 
             {
             }
+        }
+
+        public void SetTimer()
+        {
+            duration = Task.Run(async () => await DataHelper.GetFirebase()
+                .Child($"Games/{GameInfo.roomCode}/Duration").OnceSingleAsync<int>()).Result * 60;
+
+            timeLeft = duration;
+            gameTimer.Text = TimeSpan.FromSeconds(timeLeft).ToString(@"hh\:mm\:ss");
+
+            GameInfo.timer = new Timer();
+            GameInfo.timer.Interval = 1000;
+            GameInfo.timer.Elapsed += Timer_Elapsed;
+            GameInfo.timer.Start();
+
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (timeLeft-- == 00)
+            {
+                GameInfo.timer.Stop();
+                GameInfo.timer.Dispose();
+                StartActivity(typeof(ResultsActivity));
+            }
+            string timeString = TimeSpan.FromSeconds(timeLeft).ToString(@"hh\:mm\:ss");
+            RunOnUiThread(()=>gameTimer.Text = timeString);
         }
     }
 }
