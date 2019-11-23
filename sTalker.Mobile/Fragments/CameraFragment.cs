@@ -23,6 +23,7 @@ namespace sTalker
         private int preview;
         private bool facedFront;
         public EventHandler FaceAdded;
+        public EventHandler<bool> PlayerFaceFound;
 
         public Activity OwnerActivity { get; }
 
@@ -65,6 +66,7 @@ namespace sTalker
                 camera.StartPreview();
                 var callback = new CameraPictureCallBack(Activity, this);
                 callback.FaceAdded += (x,y)=>FaceAdded?.Invoke(x, y);
+                callback.PlayerFaceFound += (x, y) => PlayerFaceFound.Invoke(x, y);
                 camera.TakePicture(null, null, callback);
             }
             catch
@@ -75,9 +77,15 @@ namespace sTalker
 
         public override void OnDestroy()
         {
-            camera.StopPreview();
-            camera.Release();
-            cameraReleased = true;
+            try
+            {
+                camera.StopPreview();
+                camera.Release();
+                cameraReleased = true;
+            }
+            catch
+            { //TODO
+            }
             base.OnDestroy();
         }
 

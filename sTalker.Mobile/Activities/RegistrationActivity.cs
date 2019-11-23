@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace sTalker.Activities
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar")]
     public class RegistrationActivity : AppCompatActivity
     {
         Player player;
@@ -45,6 +45,7 @@ namespace sTalker.Activities
                 GameInfo.player = player;
 
                 StartActivity(typeof(SelfieCameraActivity));
+                Finish();
             };
         }
 

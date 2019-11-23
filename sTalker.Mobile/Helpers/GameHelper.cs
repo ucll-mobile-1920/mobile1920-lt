@@ -25,5 +25,44 @@ namespace sTalker.Helpers
             await DataHelper.GetFirebase().Child($"Games/{roomCode}/Players/{players[0].UserId}/playerToFind").
                     PutAsync(players.Last());
         }
+
+        public async static Task<bool> AssignNewPlayer(string roomCode, string playerId)
+        {
+            Player newAsignedPlayer;
+
+            var players = (await DataHelper.GetFirebase().Child($"Games/{roomCode}/Players").
+                OnceAsync<Player>()).Where(x => !x.Object.isAdmin)
+                .Select(x => new Player { Name = x.Object.Name, RecognitionServiceId = x.Object.RecognitionServiceId,
+                    UserId = x.Object.UserId, hints = x.Object.hints, playerToFind = x.Object.playerToFind }).ToList();
+
+            var current = players.Where(p => p.UserId == playerId).First();
+            var previousAsignedPlayer = current.playerToFind;
+
+            for(int i=0; i < players.Count(); i++)
+            {
+                if (players[i] == previousAsignedPlayer)
+                {
+                    if (i + 1 == players.Count())
+                    {
+                        newAsignedPlayer = players[0];
+                    }
+                    else
+                    {
+                        newAsignedPlayer = players[i + 1];
+                    }
+                    if (newAsignedPlayer.UserId == current.UserId)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        await DataHelper.GetFirebase().Child($"Games/{roomCode}/Players/{playerId}/playerToFind").
+                            PutAsync(newAsignedPlayer);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

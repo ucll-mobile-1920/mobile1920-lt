@@ -1,12 +1,14 @@
 ﻿
 using Android.Content;
 using Android.Hardware;
+using Android.Media;
 using Java.IO;
 using Microsoft.ProjectOxford.Face;
 using sTalker.Activities;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace sTalker
 {
@@ -16,6 +18,8 @@ namespace sTalker
         private CameraFragment cameraFragment;
         private Camera camera;
         public EventHandler FaceAdded;
+        private MediaPlayer mediaPlayer;
+        public EventHandler<bool> PlayerFaceFound;
 
         public CameraPictureCallBack(Context cont, CameraFragment cameraFragment)
         {
@@ -34,10 +38,15 @@ namespace sTalker
                 if (faces.Length < 1)
                 {
                     //TODO: if occurs, fix the issue that camera sometimes flips taken photos
+                    mediaPlayer = MediaPlayer.Create(context, Resource.Raw.fail);
+                    mediaPlayer.Start();
                     cameraFragment.ShowToast("No face detected!");
+                    Vibration.Vibrate();
                 }
                 else if (faces.Length > 1)
                 {
+                    mediaPlayer = MediaPlayer.Create(context, Resource.Raw.fail);
+                    mediaPlayer.Start();
                     cameraFragment.ShowToast("More than one face detected!");
                 }
                 else
@@ -99,14 +108,21 @@ namespace sTalker
                 if (result?[0].Candidates.Length != 0 && 
                     result?[0].Candidates?[0].PersonId == GameInfo.player.playerToFind.RecognitionServiceId)
                 {
+                    PlayerFaceFound?.Invoke(this, true);
+                    mediaPlayer = MediaPlayer.Create(context, Resource.Raw.success);
+                    mediaPlayer.Start();
                     //TODO: Handle points and new person to find
-                    cameraFragment.ShowToast($"SUCCESS");
+                    cameraFragment.ShowToast($"NICE WORK!");
                     return true;
                 }
                 else
                 {
                     //TODO: Handle points substraction
+                    PlayerFaceFound?.Invoke(this, false);
+                    mediaPlayer = MediaPlayer.Create(context, Resource.Raw.fail);
+                    mediaPlayer.Start();
                     cameraFragment.ShowToast("YOU FAILED!");
+                    Vibration.Vibrate();
                     return false;
                 }
             }

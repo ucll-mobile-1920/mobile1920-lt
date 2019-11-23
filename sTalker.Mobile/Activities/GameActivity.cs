@@ -15,17 +15,23 @@ namespace sTalker.Activities
     {
         Player playerToFind;
 
-        private int duration;
-        private int timeLeft;
+        private DateTime endTime;
+        private DateTime startTime;
+        private DateTime firstHintTime;
+        private DateTime secondHintTime;
+        private DateTime thirdHintTime;
+        private DateTime fourthHintTime;
+        private DateTime fifthHintTime;
 
-        private int nextHintShownAfter;
-        private int nextHintTimeLeft;
+        private int nextHintNr;
+        private DateTime nextHintTime;
+
+        private int duration;
 
         private TextView gameTimer;
 
         private EditText[] hints;
 
-        private int currentHintNr;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -35,6 +41,15 @@ namespace sTalker.Activities
             FindViewById<TextView>(Resource.Id.game_Title).Text = GameInfo.title;
 
             gameTimer = FindViewById<TextView>(Resource.Id.game_timer);
+
+            DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Status")
+                .AsObservable<GameStatus>()
+                .Subscribe(x => {
+                    if (x.Object == GameStatus.FINISHED)
+                    {
+                        EndGame();
+                    }
+                });
 
             hints = new EditText[]
             {
@@ -62,55 +77,97 @@ namespace sTalker.Activities
 
             GameInfo.player.playerToFind = playerToFind;
 
-            currentHintNr = 0;
             hints[0].Text = playerToFind.hints[0];
         }
 
         public void SetTimer()
         {
-            duration = Task.Run(async () => await DataHelper.GetFirebase()
-                .Child($"Games/{GameInfo.roomCode}/Duration").OnceSingleAsync<int>()).Result * 60;
+            startTime = Task.Run(async () => await DataHelper.GetFirebase()
+                .Child($"Games/{GameInfo.roomCode}/StartTime").OnceSingleAsync<DateTime>()).Result;
 
-            timeLeft = duration;
-            nextHintShownAfter = duration / 5;
-            nextHintTimeLeft = nextHintShownAfter;
-            gameTimer.Text = TimeSpan.FromSeconds(timeLeft).ToString(@"hh\:mm\:ss");
+            duration = Task.Run(async () => await DataHelper.GetFirebase()
+                    .Child($"Games/{GameInfo.roomCode}/Duration").OnceSingleAsync<int>()).Result;
+
+            endTime = startTime.AddMinutes(duration);
+            GameInfo.gameEnd = endTime;
+
+            var nextHintShownAfter = duration / 5;
+
+            firstHintTime = startTime.AddMinutes(nextHintShownAfter);
+            secondHintTime = firstHintTime.AddMinutes(nextHintShownAfter);
+            thirdHintTime = secondHintTime.AddMinutes(nextHintShownAfter);
+            fourthHintTime = thirdHintTime.AddMinutes(nextHintShownAfter);
+            fifthHintTime = fourthHintTime.AddMinutes(nextHintShownAfter);
+
+            nextHintNr = 1;
+            nextHintTime = secondHintTime;
+
+            TimeSpan timeSpan = endTime.Subtract(DateTime.Now);
+            gameTimer.Text = timeSpan.ToString(@"hh\:mm\:ss");
 
             GameInfo.timer = new Timer();
             GameInfo.timer.Interval = 1000;
             GameInfo.timer.Elapsed += Timer_Elapsed;
             GameInfo.timer.Start();
-
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (timeLeft-- == 0)
+            TimeSpan timeSpan = endTime.Subtract(DateTime.Now);
+          
+            RunOnUiThread(() => gameTimer.Text = timeSpan.ToString(@"hh\:mm\:ss"));
+
+            if (timeSpan.TotalSeconds == 0)
             {
-                GameInfo.timer.Stop();
-                GameInfo.timer.Dispose();
-                StartActivity(typeof(ResultsActivity));
+                EndGame();
                 return;
             }
-            if(nextHintTimeLeft-- == 0)
+            else if(DateTime.Now >= secondHintTime && nextHintNr==1)
             {
-                nextHintTimeLeft = nextHintShownAfter;
-                RunOnUiThread(() => hints[++currentHintNr].Text = playerToFind.hints[currentHintNr]);
+                RunOnUiThread(() => hints[1].Text = playerToFind.hints[1]);
+                nextHintNr = 2;
+                nextHintTime = thirdHintTime;
             }
-            if (currentHintNr < 4)
+            else if (DateTime.Now >= thirdHintTime && nextHintNr==2)
+            {
+                RunOnUiThread(() => hints[2].Text = playerToFind.hints[2]);
+                nextHintNr = 3;
+                nextHintTime = fourthHintTime;
+
+            }
+            else if (DateTime.Now >= fourthHintTime && nextHintNr==3)
+            {
+                RunOnUiThread(() => hints[3].Text = playerToFind.hints[3]);
+                nextHintNr = 4;
+                nextHintTime = fifthHintTime;
+
+            }
+            else if (DateTime.Now >= fifthHintTime && nextHintNr==4)
+            {
+                RunOnUiThread(() => hints[4].Text = playerToFind.hints[4]);
+                nextHintNr = 5;
+            }
+
+            if (nextHintNr < 5)
             {
 
                 RunOnUiThread(() =>
                 {
                     try
                     {
-                        hints[currentHintNr + 1].Text = $"{TimeSpan.FromSeconds(nextHintTimeLeft).ToString(@"hh\:mm\:ss")} until next hint";
+                        hints[nextHintNr].Text = $"{nextHintTime.Subtract(DateTime.Now).ToString(@"hh\:mm\:ss")} until next hint";
                     }
                     catch { };
                 });
 
             }
-            RunOnUiThread(()=>gameTimer.Text = TimeSpan.FromSeconds(timeLeft).ToString(@"hh\:mm\:ss"));
+        }
+
+        private void EndGame()
+        {
+            GameInfo.timer.Stop();
+            GameInfo.timer.Dispose();
+            StartActivity(typeof(ResultsActivity));
         }
     }
 }

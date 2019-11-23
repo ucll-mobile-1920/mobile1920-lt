@@ -1,15 +1,20 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.OS;
+using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Widget;
 using sTalker.Helpers;
+using sTalker.Notifications;
 using sTalker.Shared.Models;
 using System;
+using System.Linq;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace sTalker.Activities
 {
-    [Activity(Label = "UserWaitingActivity")]
+    [Activity(Label = "UserWaitingActivity", Theme = "@style/AppTheme.NoActionBar")]
     public class UserWaitingActivity : AppCompatActivity
     {
 
@@ -18,15 +23,11 @@ namespace sTalker.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.userWaiting);
 
-            CheckIfStarted();
-            DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Status").AsObservable<GameStatus>().Subscribe(x => StartGame(x.Object));
-
-            //For testing
-            FindViewById<Button>(Resource.Id.test_btn).Click += async (sender, e) =>
+            if (CheckIfStarted())
             {
-                StartActivity(typeof(GameActivity));
-            };
-
+                return;
+            }
+            DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Status").AsObservable<GameStatus>().Subscribe(x => StartGame(x.Object));
         }
 
         public void StartGame(GameStatus gameStatus)
@@ -34,12 +35,46 @@ namespace sTalker.Activities
             if(gameStatus == GameStatus.STARTED)
             {
                 StartActivity(typeof(GameActivity));
+                ShowNotification();
+                Finish();
             }
         }
 
-        public async void CheckIfStarted()
+        public bool CheckIfStarted()
         {
             //TODO: Solve the case when user tries to join after game has started
+            //var hasStarted = Task.Run(async () => (await DataHelper.GetFirebase()
+            //    .Child($"Games/{GameInfo.roomCode}/Status").OnceAsync<GameStatus>()).First().Object).Result == GameStatus.STARTED;
+
+            //if (hasStarted)
+            //{
+            //    new ToastCreator(this, "Game has already started! You're too late").Run();
+            //}
+            //return hasStarted;
+            return false;
+        }
+
+        private void ShowNotification()
+        {
+            ((NotificationManager)ApplicationContext.GetSystemService(NotificationService)).Cancel(2000);
+
+            var resultIntent = new Intent(this, typeof(GameActivity));
+            var stackBuilder = Android.App.TaskStackBuilder.Create(this);
+            stackBuilder.AddParentStack(this);
+            stackBuilder.AddNextIntent(resultIntent);
+
+            PendingIntent resultPendingIntent =
+           stackBuilder.GetPendingIntent(0, PendingIntentFlags.UpdateCurrent);
+
+            var builder = new NotificationCompat.Builder(this, "location_notification")
+              .SetAutoCancel(false)
+              .SetContentIntent(resultPendingIntent)
+              .SetContentTitle("Go sTalk!")
+              .SetSmallIcon(Resource.Drawable.ic_action_info) //TODO: change to actual logo
+              .SetContentText($"Found your person? Click here!");
+
+            var notificationManager = NotificationManagerCompat.From(this);
+            notificationManager.Notify(2001, builder.Build());
         }
 
 

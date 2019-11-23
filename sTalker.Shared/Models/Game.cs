@@ -12,6 +12,7 @@ namespace sTalker.Shared.Models
         public int RoomCode { get; set; }
         public string Title { get; set; }
         public List<Player> Players { get; set; }
+        public DateTime StartTime { get; set; }
 
         /*Using array because firebase subscription doesn't work elseway*/
         public List<GameStatus> Status { get; set; }

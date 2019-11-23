@@ -1,6 +1,7 @@
 ﻿using Microsoft.ProjectOxford.Face;
 using Microsoft.ProjectOxford.Face.Contract;
 using sTalker.Shared.Models;
+using System;
 using System.Timers;
 
 namespace sTalker
@@ -16,5 +17,8 @@ namespace sTalker
         public static PersonGroup personGroup;
         public static Player player;
         public static Timer timer;
+        public static int duration;
+
+        public static DateTime gameEnd;
     }
 }

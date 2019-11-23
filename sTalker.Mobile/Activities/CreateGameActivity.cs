@@ -1,11 +1,15 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.OS;
+using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Widget;
 using Firebase.Database.Query;
 using sTalker.Helpers;
+using sTalker.Notifications;
 using sTalker.Shared.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace sTalker.Activities
 {
@@ -26,9 +30,21 @@ namespace sTalker.Activities
 
             title = FindViewById<EditText>(Resource.Id.nameOfTheGame_txt);
 
-            FindViewById<Button>(Resource.Id.next_btn).Click += (sender, e) => {
-                CreateGame(title.Text);
-                StartActivity(typeof(PlayersListActivity));
+
+            FindViewById<Button>(Resource.Id.next_btn).Click += async (sender, e) => {
+
+                if (string.IsNullOrWhiteSpace(title.Text))
+                {
+                    new ToastCreator(this, "Title cannot be empty!").Run();
+                    return;
+                }
+
+                if (await CreateGame(title.Text))
+                {
+                    ShowNotification();
+                    StartActivity(typeof(PlayersListActivity));
+                    Finish();
+                }
             };
 
             seekBar = FindViewById<SeekBar>(Resource.Id.time_seekBar);
@@ -44,15 +60,42 @@ namespace sTalker.Activities
 
         }
 
-        private async void CreateGame(string gameTitle)
+        private async Task<bool> CreateGame(string gameTitle)
         {
             var game = new Game(gameTitle, duration);
+            GameInfo.duration = duration;
+            try
+            {
+                await GameInfo.faceServiceClient.CreatePersonGroupAsync(game.RoomCode.ToString(), game.Title);
 
-            await GameInfo.faceServiceClient.CreatePersonGroupAsync(game.RoomCode.ToString(), game.Title);
+                await DataHelper.GetFirebase().Child($"Games/{game.RoomCode}").PutAsync(game);
+                await DataHelper.GetFirebase().Child($"Games/{game.RoomCode}/Players/admin").PutAsync(new Player("Admin", new List<string>(), true));
 
-            await DataHelper.GetFirebase().Child($"Games/{game.RoomCode}").PutAsync(game);
-            await DataHelper.GetFirebase().Child($"Games/{game.RoomCode}/Players/admin").PutAsync(new Player("Admin", new List<string>(), true));
+                return true;
+            }
+            catch { new ToastCreator(this, "Unable to establish connection").Run(); return false; }
 
+        }
+
+        private void ShowNotification()
+        {
+            var resultIntent = new Intent(this, typeof(PlayersListActivity));
+            var stackBuilder = Android.App.TaskStackBuilder.Create(this);
+            stackBuilder.AddParentStack(this);
+            stackBuilder.AddNextIntent(resultIntent);
+
+            PendingIntent resultPendingIntent =
+           stackBuilder.GetPendingIntent(0, PendingIntentFlags.UpdateCurrent);
+
+            var builder = new NotificationCompat.Builder(this, "location_notification")
+              .SetAutoCancel(false) 
+              .SetContentIntent(resultPendingIntent)
+              .SetContentTitle("Waiting for players") 
+              .SetSmallIcon(Resource.Drawable.ic_action_info) //TODO: change to actual logo
+              .SetContentText($"Want to start the game? Click here!");
+
+            var notificationManager = NotificationManagerCompat.From(this);
+            notificationManager.Notify(1000, builder.Build());
         }
 
 
