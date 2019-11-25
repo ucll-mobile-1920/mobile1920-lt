@@ -2,27 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#01908A">
-    <TextView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="175dp"
-        android:text="logo"
-        android:textColor="#FFF"
-        android:textSize="28sp"
-        android:textStyle="bold" />  
+    android:background="#d5bb6100">
+
+	<ImageView
+      android:id="@+id/logo"
+      android:layout_centerHorizontal="true"
+      android:src="@drawable/logo"
+      android:layout_width="220dp"
+      android:layout_height="220dp"
+	  android:layout_marginTop="50dp"/>
+
     <Button
         android:id="@+id/newGame_btn"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
         android:background="@drawable/circle_blue"
         android:text="new game"
-        android:textColor="#01908A"
+        android:textColor="#d5bb6100"
         android:textSize="18sp" />
     <Button
         android:id="@+id/joinRoom_btn"
@@ -33,6 +31,6 @@
         android:layout_marginTop="22dp"
         android:background="@drawable/circle_blue"
         android:text="join room"
-        android:textColor="#01908A"
+        android:textColor="#d5bb6100"
         android:textSize="18sp" />
 </RelativeLayout>

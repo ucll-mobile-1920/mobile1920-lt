@@ -10,7 +10,6 @@ namespace sTalker.Shared.Models
         public string UserId { get; set; }
         public List<string> hints;
         public int roomCode;
-        public bool isAdmin;
         public int points;
         public Player playerToFind;
 
@@ -22,13 +21,12 @@ namespace sTalker.Shared.Models
 
         }
 
-        public Player(string Name, List<string> hints, bool isAdmin = false)
+        public Player(string Name, List<string> hints)
         {
             Random random = new Random();
             UserId = random.Next(10, 99).ToString();
             this.Name = Name;
             this.hints = hints;
-            this.isAdmin = isAdmin;
         }
 
     }

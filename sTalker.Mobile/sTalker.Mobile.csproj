@@ -181,12 +181,6 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\logo.png">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\drawable\circle_blue.xml">
       <SubType>
       </SubType>
@@ -279,6 +273,14 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\waitGameEnd.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\rounded_frame_layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

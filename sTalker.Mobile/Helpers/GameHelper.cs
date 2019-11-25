@@ -10,9 +10,14 @@ namespace sTalker.Helpers
 
         public async static Task AssignPlayersToFind(string roomCode)
         {
-            var players = (await DataHelper.GetFirebase().Child($"Games/{roomCode}/Players").
-                OnceAsync<Player>()).Where(x=>!x.Object.isAdmin)
-                .Select(x => new Player { Name = x.Object.Name, RecognitionServiceId = x.Object.RecognitionServiceId, UserId = x.Object.UserId, hints = x.Object.hints }).ToList();
+            var players = (await DataHelper.GetFirebase().Child($"Games/{roomCode}/Players")
+                .OnceAsync<Player>())
+                .Select(x => new Player {
+                    Name = x.Object.Name,
+                    RecognitionServiceId = x.Object.RecognitionServiceId,
+                    UserId = x.Object.UserId,
+                    hints = x.Object.hints
+                }).ToList();
 
             if (players.Count() < 1)
                 return;
@@ -30,17 +35,22 @@ namespace sTalker.Helpers
         {
             Player newAsignedPlayer;
 
-            var players = (await DataHelper.GetFirebase().Child($"Games/{roomCode}/Players").
-                OnceAsync<Player>()).Where(x => !x.Object.isAdmin)
-                .Select(x => new Player { Name = x.Object.Name, RecognitionServiceId = x.Object.RecognitionServiceId,
-                    UserId = x.Object.UserId, hints = x.Object.hints, playerToFind = x.Object.playerToFind }).ToList();
+            var players = (await DataHelper.GetFirebase().Child($"Games/{roomCode}/Players")
+                .OnceAsync<Player>())
+                .Select(x => new Player {
+                    Name = x.Object.Name,
+                    RecognitionServiceId = x.Object.RecognitionServiceId,
+                    UserId = x.Object.UserId,
+                    hints = x.Object.hints,
+                    playerToFind = x.Object.playerToFind
+                }).ToList();
 
             var current = players.Where(p => p.UserId == playerId).First();
             var previousAsignedPlayer = current.playerToFind;
 
             for(int i=0; i < players.Count(); i++)
             {
-                if (players[i] == previousAsignedPlayer)
+                if (players[i].UserId == previousAsignedPlayer.UserId)
                 {
                     if (i + 1 == players.Count())
                     {

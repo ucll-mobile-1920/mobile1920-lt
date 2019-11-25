@@ -69,7 +69,6 @@ namespace sTalker.Activities
                 await GameInfo.faceServiceClient.CreatePersonGroupAsync(game.RoomCode.ToString(), game.Title);
 
                 await DataHelper.GetFirebase().Child($"Games/{game.RoomCode}").PutAsync(game);
-                await DataHelper.GetFirebase().Child($"Games/{game.RoomCode}/Players/admin").PutAsync(new Player("Admin", new List<string>(), true));
 
                 return true;
             }

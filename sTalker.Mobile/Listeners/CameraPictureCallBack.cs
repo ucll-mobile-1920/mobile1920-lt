@@ -111,13 +111,11 @@ namespace sTalker
                     PlayerFaceFound?.Invoke(this, true);
                     mediaPlayer = MediaPlayer.Create(context, Resource.Raw.success);
                     mediaPlayer.Start();
-                    //TODO: Handle points and new person to find
-                    cameraFragment.ShowToast($"NICE WORK!");
+                    cameraFragment.ShowToast("NICE WORK!");
                     return true;
                 }
                 else
                 {
-                    //TODO: Handle points substraction
                     PlayerFaceFound?.Invoke(this, false);
                     mediaPlayer = MediaPlayer.Create(context, Resource.Raw.fail);
                     mediaPlayer.Start();
