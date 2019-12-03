@@ -43,6 +43,7 @@ namespace sTalker.Activities
                 {
                     new ToastCreator(this, "You have found all players!");
                     StartActivity(typeof(WaitGameEndActivity));
+                    ShowNotification();
                     Finish();
                 }
             }

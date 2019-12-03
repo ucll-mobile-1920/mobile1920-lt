@@ -30,7 +30,7 @@ namespace sTalker.Activities
             DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Players").AsObservable<Player>().Subscribe(x => UpdatePlayers(x.Object));
 
             FindViewById<Button>(Resource.Id.letsTalk_btn).Click += async (sender, e) => {
-                if (registeredPlayers.Count < 3)
+                if (registeredPlayers.Count < 2)
                 {
                     new ToastCreator(this, "There must be at least 2 players").Run();
                     return;
