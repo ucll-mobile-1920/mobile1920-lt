@@ -4,8 +4,6 @@ VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sTalker.Mobile", "sTalker.Mobile\sTalker.Mobile.csproj", "{301F46E4-3552-4D8A-A124-6D25C4AE8467}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sTalker.Server", "sTalker.Server\sTalker.Server.csproj", "{7F5C9AAD-1111-4DEC-A42D-37DE6BA223F5}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "sTalker.Shared", "sTalker.Shared\sTalker.Shared.shproj", "{1EE3B06B-05EC-440D-8095-E5E88DEDFA0A}"
 EndProject
 Global
@@ -23,10 +21,6 @@ Global
 		{301F46E4-3552-4D8A-A124-6D25C4AE8467}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{301F46E4-3552-4D8A-A124-6D25C4AE8467}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{301F46E4-3552-4D8A-A124-6D25C4AE8467}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F5C9AAD-1111-4DEC-A42D-37DE6BA223F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F5C9AAD-1111-4DEC-A42D-37DE6BA223F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F5C9AAD-1111-4DEC-A42D-37DE6BA223F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F5C9AAD-1111-4DEC-A42D-37DE6BA223F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

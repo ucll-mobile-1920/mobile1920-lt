@@ -8,11 +8,4 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>sTalker.Shared</Import_RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Player.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Game.cs" />
-  </ItemGroup>
 </Project>
