@@ -48,7 +48,10 @@ namespace sTalker.Activities
 
         private void UpdatePlayers(Player player)
         {
-            registeredPlayers.Add(player);
+            if (player != null)
+            {
+                registeredPlayers.Add(player);
+            }
             //TODO: update listview with new player (passed as parameter to this method)
         }
 

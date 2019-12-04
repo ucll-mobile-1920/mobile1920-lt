@@ -17,16 +17,17 @@ namespace sTalker.Activities
     [Activity(Label = "UserWaitingActivity", Theme = "@style/AppTheme.NoActionBar")]
     public class UserWaitingActivity : AppCompatActivity
     {
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.userWaiting);
 
-            if (CheckIfStarted())
-            {
-                return;
-            }
+            //if (!CheckIfCanJoin())
+            //{
+            //    new ToastCreator(this, "Game has already started! You're too late").Run();
+            //    return;
+            //}
+
             DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Status").AsObservable<GameStatus>().Subscribe(x => StartGame(x.Object));
         }
 
@@ -40,19 +41,12 @@ namespace sTalker.Activities
             }
         }
 
-        public bool CheckIfStarted()
-        {
-            //TODO: Solve the case when user tries to join after game has started
-            //var hasStarted = Task.Run(async () => (await DataHelper.GetFirebase()
-            //    .Child($"Games/{GameInfo.roomCode}/Status").OnceAsync<GameStatus>()).First().Object).Result == GameStatus.STARTED;
-
-            //if (hasStarted)
-            //{
-            //    new ToastCreator(this, "Game has already started! You're too late").Run();
-            //}
-            //return hasStarted;
-            return false;
-        }
+        //private bool CheckIfCanJoin()
+        //{
+        //    var gameStatus = Task.Run(async () => await DataHelper.GetFirebase()
+        //        .Child($"Games/{GameInfo.roomCode}/Status").OnceAsync<GameStatus>()).Result;
+        //    return false;
+        //}
 
         private void ShowNotification()
         {
