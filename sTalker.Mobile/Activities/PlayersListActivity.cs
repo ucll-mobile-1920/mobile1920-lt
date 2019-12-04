@@ -56,7 +56,7 @@ namespace sTalker.Activities
             if (player != null)
             {
                 registeredPlayers.Add(player);
-                adapter.NotifyDataSetChanged();
+                RunOnUiThread(() => adapter.NotifyDataSetChanged());
             }
             //TODO: update listview with new player (passed as parameter to this method)
         }
