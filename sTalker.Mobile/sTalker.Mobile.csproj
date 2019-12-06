@@ -86,6 +86,7 @@
     <Compile Include="Activities\LivePointsActivity.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Adapters\PointsAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
