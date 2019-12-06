@@ -4,8 +4,6 @@ VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sTalker.Mobile", "sTalker.Mobile\sTalker.Mobile.csproj", "{301F46E4-3552-4D8A-A124-6D25C4AE8467}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "sTalker.Shared", "sTalker.Shared\sTalker.Shared.shproj", "{1EE3B06B-05EC-440D-8095-E5E88DEDFA0A}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		sTalker.Shared\sTalker.Shared.projitems*{1ee3b06b-05ec-440d-8095-e5e88dedfa0a}*SharedItemsImports = 13
