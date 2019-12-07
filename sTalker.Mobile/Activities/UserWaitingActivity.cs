@@ -64,7 +64,7 @@ namespace sTalker.Activities
               .SetAutoCancel(false)
               .SetContentIntent(resultPendingIntent)
               .SetContentTitle("Go sTalk!")
-              .SetSmallIcon(Resource.Drawable.ic_action_info) //TODO: change to actual logo
+              .SetSmallIcon(Resource.Drawable.ic_launcher) 
               .SetContentText($"Found your person? Click here!");
 
             var notificationManager = NotificationManagerCompat.From(this);

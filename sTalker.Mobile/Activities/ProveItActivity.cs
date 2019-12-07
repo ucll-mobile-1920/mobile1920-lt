@@ -71,7 +71,7 @@ namespace sTalker.Activities
               .SetAutoCancel(false)
               .SetContentIntent(resultPendingIntent)
               .SetContentTitle("Wait for others")
-              .SetSmallIcon(Resource.Drawable.ic_action_info) //TODO: change to actual logo
+              .SetSmallIcon(Resource.Drawable.ic_launcher) 
               .SetContentText($"Wait for others to finish");
 
             var notificationManager = NotificationManagerCompat.From(this);

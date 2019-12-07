@@ -50,7 +50,7 @@ namespace sTalker.Activities
               .SetAutoCancel(false)
               .SetContentIntent(resultPendingIntent)
               .SetContentTitle("Waiting for start")
-              .SetSmallIcon(Resource.Drawable.ic_action_info) //TODO: change to actual logo
+              .SetSmallIcon(Resource.Drawable.ic_launcher) 
               .SetContentText($"Want to go back to the game? Click here!");
 
             var notificationManager = NotificationManagerCompat.From(this);

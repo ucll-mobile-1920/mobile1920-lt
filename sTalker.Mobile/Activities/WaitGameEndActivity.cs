@@ -21,7 +21,7 @@ namespace sTalker.Activities
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.waitGameEnd);
         }
-        
+
     }
 }
 

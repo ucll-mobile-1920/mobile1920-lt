@@ -29,12 +29,15 @@ namespace sTalker.Activities
 
             DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Players").AsObservable<Player>().Subscribe(x => UpdatePlayers(x.Object));
 
-            FindViewById<Button>(Resource.Id.letsTalk_btn).Click += async (sender, e) => {
+            Button startBtn = FindViewById<Button>(Resource.Id.letsTalk_btn);
+
+            startBtn.Click += async (sender, e) => {
                 if (registeredPlayers.Count < 2)
                 {
                     new ToastCreator(this, "There must be at least 2 players").Run();
                     return;
                 }
+                startBtn.Enabled = false;
                 await SetGameStart();
                 StartActivity(typeof(LivePointsActivity));
                 ShowNotification();
@@ -104,7 +107,7 @@ namespace sTalker.Activities
               .SetAutoCancel(false)
               .SetContentIntent(resultPendingIntent) 
               .SetContentTitle("Game started")
-              .SetSmallIcon(Resource.Drawable.ic_action_info) //TODO: change to actual logo
+              .SetSmallIcon(Resource.Drawable.ic_launcher) 
               .SetContentText($"Interested how the game is going? Click here!");
 
             var notificationManager = NotificationManagerCompat.From(this);

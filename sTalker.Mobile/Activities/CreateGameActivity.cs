@@ -30,14 +30,16 @@ namespace sTalker.Activities
 
             title = FindViewById<EditText>(Resource.Id.nameOfTheGame_txt);
 
-
-            FindViewById<Button>(Resource.Id.next_btn).Click += async (sender, e) => {
+            Button newBtn = FindViewById<Button>(Resource.Id.next_btn);
+            newBtn.Click += async (sender, e) => {
 
                 if (string.IsNullOrWhiteSpace(title.Text))
                 {
                     new ToastCreator(this, "Title cannot be empty!").Run();
                     return;
                 }
+
+                newBtn.Enabled = false;
 
                 if (await CreateGame(title.Text))
                 {
@@ -90,7 +92,7 @@ namespace sTalker.Activities
               .SetAutoCancel(false) 
               .SetContentIntent(resultPendingIntent)
               .SetContentTitle("Waiting for players") 
-              .SetSmallIcon(Resource.Drawable.ic_action_info) //TODO: change to actual logo
+              .SetSmallIcon(Resource.Drawable.ic_launcher)
               .SetContentText($"Want to start the game? Click here!");
 
             var notificationManager = NotificationManagerCompat.From(this);

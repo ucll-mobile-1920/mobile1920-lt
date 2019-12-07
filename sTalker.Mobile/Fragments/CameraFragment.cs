@@ -24,6 +24,7 @@ namespace sTalker
         private bool facedFront;
         public EventHandler FaceAdded;
         public EventHandler<bool> PlayerFaceFound;
+        public Button snapButton;
 
         public Activity OwnerActivity { get; }
 
@@ -48,7 +49,7 @@ namespace sTalker
             var ignor = base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(layout, container, false);
 
-            var snapButton = view.FindViewById<Button>(button);
+            snapButton = view.FindViewById<Button>(button);
             snapButton.BringToFront();
             snapButton.Click += SnapButtonClick; ;
 
@@ -63,8 +64,9 @@ namespace sTalker
         {
             try
             {
+                snapButton.Enabled = false;
                 camera.StartPreview();
-                var callback = new CameraPictureCallBack(Activity, this);
+                var callback = new CameraPictureCallBack(Activity, this,snapButton);
                 callback.FaceAdded += (x,y)=>FaceAdded?.Invoke(x, y);
                 callback.PlayerFaceFound += (x, y) => PlayerFaceFound.Invoke(x, y);
                 camera.TakePicture(null, null, callback);

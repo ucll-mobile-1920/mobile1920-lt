@@ -24,7 +24,7 @@ namespace sTalker.Shared.Models
         public Player(string Name, List<string> hints)
         {
             Random random = new Random();
-            UserId = random.Next(10, 99).ToString();
+            UserId = random.Next(100000000, 999999999).ToString();
             this.Name = Name;
             this.hints = hints;
         }

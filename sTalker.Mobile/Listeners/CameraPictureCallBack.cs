@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.Hardware;
 using Android.Media;
+using Android.Widget;
 using Java.IO;
 using Microsoft.ProjectOxford.Face;
 using sTalker.Activities;
@@ -20,11 +21,13 @@ namespace sTalker
         public EventHandler FaceAdded;
         private MediaPlayer mediaPlayer;
         public EventHandler<bool> PlayerFaceFound;
+        public Button snapButton;
 
-        public CameraPictureCallBack(Context cont, CameraFragment cameraFragment)
+        public CameraPictureCallBack(Context cont, CameraFragment cameraFragment, Button btn)
         {
             context = cont;
             this.cameraFragment = cameraFragment;
+            snapButton = btn;
         }
 
         public void OnPictureTaken(byte[] data, Camera camera)
@@ -42,12 +45,14 @@ namespace sTalker
                     mediaPlayer.Start();
                     cameraFragment.ShowToast("No face detected!");
                     Vibration.Vibrate();
+                    snapButton.Enabled = true;
                 }
                 else if (faces.Length > 1)
                 {
                     mediaPlayer = MediaPlayer.Create(context, Resource.Raw.fail);
                     mediaPlayer.Start();
                     cameraFragment.ShowToast("More than one face detected!");
+                    snapButton.Enabled = true;
                 }
                 else
                 {
@@ -57,6 +62,7 @@ namespace sTalker
                         return;
                     } else
                     {
+                        snapButton.Enabled = false;
                         bool success = Task.Run(async()=> await Recognize(data,new Guid[]{ faces[0].FaceId })).Result;
                         if (success)
                         {
@@ -65,6 +71,7 @@ namespace sTalker
                             cameraFragment.OwnerActivity.StartActivity(typeof(GameActivity));
                             return;
                         }
+                        snapButton.Enabled = true;
                     }
                 }
 
@@ -74,6 +81,7 @@ namespace sTalker
             catch (Exception e)
             {
                 cameraFragment.ShowToast($"Unhandled error: {e.Message}");
+                snapButton.Enabled = true;
             }
         }
 

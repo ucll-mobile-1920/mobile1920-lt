@@ -32,9 +32,6 @@ namespace sTalker.Activities
                 hints[3]=FindViewById<EditText>(Resource.Id.hint4).Text;
                 hints[4]=FindViewById<EditText>(Resource.Id.hint5).Text;
 
-                //TODO: remove when needed to get actual input
-                //Test();
-
                 if (string.IsNullOrEmpty(name) || hints.Where(x=>string.IsNullOrEmpty(x)).Count() != 0)
                 {
                     new ToastCreator(this, "Please fill in all fields!").Run();
@@ -47,16 +44,6 @@ namespace sTalker.Activities
                 StartActivity(typeof(SelfieCameraActivity));
                 Finish();
             };
-        }
-
-        public void Test()
-        {
-            name = "test";
-            hints[0] = "hint1";
-            hints[1] = "gint2";
-            hints[2] = "gdg";
-            hints[3] = "fsdfsf";
-            hints[4] = "fdfdf";
         }
     }
 }

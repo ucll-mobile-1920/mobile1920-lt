@@ -22,7 +22,7 @@ namespace sTalker.Shared.Models
             Players = new List<Player>();
             Status = new List<GameStatus>();
             System.Random random = new System.Random();
-            RoomCode = random.Next(1000, 9999);
+            RoomCode = random.Next(100000, 999999);
             GameInfo.roomCode = RoomCode.ToString();
             GameInfo.title = title;
             Title = title;

@@ -19,9 +19,10 @@ namespace sTalker.Activities
 
             EditText text = FindViewById<EditText>(Resource.Id.roomCode);
 
-
-            FindViewById<Button>(Resource.Id.next_btn).Click += async (sender, e) =>
+            Button nextBtn = FindViewById<Button>(Resource.Id.next_btn);
+            nextBtn.Click += (sender, e) =>
             {
+                nextBtn.Enabled = false;
                 GameInfo.roomCode = text.Text;
                 try
                 {
@@ -33,6 +34,7 @@ namespace sTalker.Activities
                 catch (AggregateException)
                 {
                     new ToastCreator(this, "Room not found").Run();
+                    nextBtn.Enabled = true;
                 }
             };
         }

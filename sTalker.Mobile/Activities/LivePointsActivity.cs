@@ -17,7 +17,9 @@ namespace sTalker.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.livePoints);
 
-            FindViewById<Button>(Resource.Id.end_btn).Click += async (sender, e) => {
+            Button endBtn = FindViewById<Button>(Resource.Id.end_btn);
+            endBtn.Click += (sender,e)=>endBtn.Enabled = false;
+            endBtn.Click += async (sender, e) => {
                 await SetGameEnd();
                 ((NotificationManager)ApplicationContext.GetSystemService(NotificationService)).Cancel(1001);
                 StartActivity(typeof(AdminResultsActivity));
