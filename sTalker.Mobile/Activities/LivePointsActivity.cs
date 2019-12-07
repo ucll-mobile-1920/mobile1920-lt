@@ -3,8 +3,11 @@ using Android.App;
 using Android.OS;
 using Android.Widget;
 using Firebase.Database.Query;
+using sTalker.Adapters;
 using sTalker.Helpers;
 using sTalker.Shared.Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace sTalker.Activities
@@ -12,6 +15,10 @@ namespace sTalker.Activities
     [Activity(Label = "LivePointsActivity")]
     public class LivePointsActivity : Activity
     {
+        private ListView pointsListView;
+        private List<Player> registeredPlayers = new List<Player>();
+        PointsAdapter adapter;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,11 +35,41 @@ namespace sTalker.Activities
 
             FindViewById<TextView>(Resource.Id.livePointsTitle).Text = GameInfo.title;
             FindViewById<TextView>(Resource.Id.livePointsRoomCode).Text = GameInfo.roomCode;
+
+            SetupRecyClerView();
         }
 
         private async Task SetGameEnd()
         {
             await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Status/0").PutAsync(GameStatus.FINISHED);
+        }
+
+        private void SetupRecyClerView()
+        {
+            registeredPlayers = Task.Run(async () => await GetAllPlayers()).Result;
+            pointsListView = FindViewById<ListView>(Resource.Id.livePointsList);
+            adapter = new PointsAdapter(this, registeredPlayers);
+            pointsListView.Adapter = adapter;
+            pointsListView.ItemClick += PointsListView_ItemClick;
+        }
+
+        public async Task<List<Player>> GetAllPlayers()
+        {
+
+            return (await DataHelper.GetFirebase()
+              .Child($"Games/{GameInfo.roomCode}/Players")
+              .OnceAsync<Player>()).Select(item => new Player
+              {
+                  Name = item.Object.Name,
+                  UserId = item.Object.UserId,
+                  points = item.Object.points
+              }).ToList();
+        }
+
+        private void PointsListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var select = registeredPlayers[e.Position].Name;
+            Toast.MakeText(this, select, ToastLength.Long).Show();
         }
     }
 }

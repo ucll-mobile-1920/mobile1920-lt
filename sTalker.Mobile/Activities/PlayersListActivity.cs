@@ -47,10 +47,7 @@ namespace sTalker.Activities
             FindViewById<TextView>(Resource.Id.playerListTitle).Text = GameInfo.title;
             FindViewById<TextView>(Resource.Id.roomCode).Text = GameInfo.roomCode;
 
-
-            playersListView = FindViewById<ListView>(Resource.Id.playersList);
-            adapter = new PlayersAdapter(this, registeredPlayers);
-            playersListView.Adapter = adapter;
+            SetupRecyClerView();
         }
         
 
@@ -61,7 +58,6 @@ namespace sTalker.Activities
                 registeredPlayers.Add(player);
                 RunOnUiThread(() => adapter.NotifyDataSetChanged());
             }
-            //TODO: update listview with new player (passed as parameter to this method)
         }
 
         private async Task SetGameStart()

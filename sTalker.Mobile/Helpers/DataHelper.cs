@@ -1,4 +1,8 @@
-﻿using Firebase.Database;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Firebase.Database;
+using sTalker.Shared.Models;
 
 namespace sTalker.Helpers
 {

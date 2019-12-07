@@ -7,12 +7,12 @@ using System.Collections.Generic;
 
 namespace sTalker.Adapters
 {
-    public class PlayersAdapter : BaseAdapter<Player>
+    public class PointsAdapter : BaseAdapter<Player>
     {
         public List<Player> list;
         private Context context;
         private ConcurrentDictionary<string, Player> dictionary;
-        public PlayersAdapter(Context context, List<Player> list)
+        public PointsAdapter(Context context, List<Player> list)
         {
             this.list = list;
             this.context = context;
@@ -48,7 +48,7 @@ namespace sTalker.Adapters
                     row = LayoutInflater.From(context).Inflate(Resource.Layout.playerRow, null, false);
                 }
                 TextView txtName = row.FindViewById<TextView>(Resource.Id.Name);
-                txtName.Text = list[position].Name;
+                txtName.Text = list[position].points + " " + list[position].Name;
             }
             catch (System.Exception ex)
             {
