@@ -5,6 +5,7 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using sTalker.Shared.Models;
+using System.Threading.Tasks;
 
 namespace sTalker.Activities
 {
@@ -25,11 +26,28 @@ namespace sTalker.Activities
                 StartActivity(typeof(CreateGameActivity));
             };
 
+            //FindViewById<Button>(Resource.Id.newGame_btn).Click += (sender, e) =>
+            //{
+            //    GameInfo.roomCode = "7574";
+            //    GameInfo.duration = 10;
+            //    StartActivity(typeof(PlayersListActivity));
+            //};
+
             FindViewById<Button>(Resource.Id.joinRoom_btn).Click += (sender, e) =>
             {
                 StartActivity(typeof(EnterRoomCodeActivity));
             };
+
+            //FindViewById<Button>(Resource.Id.joinRoom_btn).Click += (sender, e) =>
+            //{
+            //    GameInfo.player = new Player();
+            //    GameInfo.player.UserId = "48";
+            //    GameInfo.roomCode = "7293";
+            //    GameInfo.personGroup = Task.Run(async () => await GameInfo.faceServiceClient.GetPersonGroupAsync("7293")).Result;
+            //    StartActivity(typeof(GameActivity));
+            //};
         }
+    
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {

@@ -80,6 +80,7 @@ namespace sTalker.Activities
 
         private void ShowNotification()
         {
+            ((NotificationManager)ApplicationContext.GetSystemService(NotificationService)).Cancel(1000);
             var resultIntent = new Intent(this, typeof(PlayersListActivity));
             var stackBuilder = Android.App.TaskStackBuilder.Create(this);
             stackBuilder.AddParentStack(this);

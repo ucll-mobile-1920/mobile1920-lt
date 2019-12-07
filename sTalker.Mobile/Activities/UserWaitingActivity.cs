@@ -51,6 +51,7 @@ namespace sTalker.Activities
         private void ShowNotification()
         {
             ((NotificationManager)ApplicationContext.GetSystemService(NotificationService)).Cancel(2000);
+            ((NotificationManager)ApplicationContext.GetSystemService(NotificationService)).Cancel(2001);
 
             var resultIntent = new Intent(this, typeof(GameActivity));
             var stackBuilder = Android.App.TaskStackBuilder.Create(this);

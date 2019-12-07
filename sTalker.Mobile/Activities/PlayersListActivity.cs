@@ -11,6 +11,7 @@ using sTalker.Notifications;
 using sTalker.Shared.Models;
 using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace sTalker.Activities
@@ -47,17 +48,26 @@ namespace sTalker.Activities
             FindViewById<TextView>(Resource.Id.playerListTitle).Text = GameInfo.title;
             FindViewById<TextView>(Resource.Id.roomCode).Text = GameInfo.roomCode;
 
-            SetupRecyClerView();
+            var players = Task.Run(async () => await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Players").OnceAsync<Player>()).Result;
+            foreach(var p in players)
+            {
+                registeredPlayers.Add(p.Object);
+            }
+
+            playersListView = FindViewById<ListView>(Resource.Id.playersList);
+            adapter = new PlayersAdapter(this, registeredPlayers);
+            playersListView.Adapter = adapter;
         }
         
 
         private void UpdatePlayers(Player player)
         {
-            if (player != null)
+            if (player != null && registeredPlayers.Find(x=>x.UserId == player.UserId)==null)
             {
                 registeredPlayers.Add(player);
                 RunOnUiThread(() => adapter.NotifyDataSetChanged());
             }
+            //TODO: update listview with new player (passed as parameter to this method)
         }
 
         private async Task SetGameStart()
@@ -90,6 +100,7 @@ namespace sTalker.Activities
         private void ShowNotification()
         {
             ((NotificationManager)ApplicationContext.GetSystemService(NotificationService)).Cancel(1000);
+            ((NotificationManager)ApplicationContext.GetSystemService(NotificationService)).Cancel(1001);
 
             var resultIntent = new Intent(this, typeof(LivePointsActivity));
             var stackBuilder = Android.App.TaskStackBuilder.Create(this);

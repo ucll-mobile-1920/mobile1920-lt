@@ -65,10 +65,13 @@
     <Compile Include="Activities\ResultsActivity.cs" />
     <Compile Include="Activities\SelfieCameraActivity.cs" />
     <Compile Include="Activities\UserWaitingActivity.cs" />
+    <Compile Include="Adapters\PointsAdapter.cs" />
     <Compile Include="Fragments\CameraFragment.cs" />
     <Compile Include="Helpers\GameHelper.cs" />
     <Compile Include="Listeners\CameraPictureCallBack.cs" />
     <Compile Include="Listeners\CameraPreview.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Player.cs" />
     <Compile Include="Notifications\ErrorDialogCreator.cs" />
     <Compile Include="Notifications\ToastCreator.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -331,9 +334,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="..\sTalker.Shared\sTalker.Shared.projitems" Label="Shared" Condition="Exists('..\sTalker.Shared\sTalker.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

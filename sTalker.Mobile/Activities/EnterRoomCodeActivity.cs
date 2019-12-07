@@ -30,6 +30,7 @@ namespace sTalker.Activities
                         await GameInfo.faceServiceClient.GetPersonGroupAsync(text.Text)).Result;
 
                     StartActivity(typeof(RegistrationActivity));
+                    Finish();
                 }
                 catch (AggregateException)
                 {
