@@ -2,8 +2,8 @@
 using Android.Views;
 using Android.Widget;
 using sTalker.Shared.Models;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace sTalker.Adapters
 {
@@ -11,7 +11,6 @@ namespace sTalker.Adapters
     {
         public List<Player> list;
         private Context context;
-        private ConcurrentDictionary<string, Player> dictionary;
         public PointsAdapter(Context context, List<Player> list)
         {
             this.list = list;

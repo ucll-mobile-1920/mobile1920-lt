@@ -183,12 +183,6 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\registerPhoto.axml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\proveItCamera.axml">
       <SubType>
       </SubType>
@@ -225,16 +219,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_action_info.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\cameraWindowBase.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\cameraFragment.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\userWaiting.axml">
@@ -335,7 +319,6 @@
     <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup />
-  <Import Project="..\sTalker.Shared\sTalker.Shared.projitems" Label="Shared" Condition="Exists('..\sTalker.Shared\sTalker.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
     Other similar extension points exist, see Microsoft.Common.targets.

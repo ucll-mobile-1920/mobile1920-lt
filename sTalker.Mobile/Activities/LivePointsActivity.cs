@@ -9,6 +9,8 @@ using sTalker.Shared.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
+using System.Reactive.Linq;
 
 namespace sTalker.Activities
 {
@@ -32,11 +34,24 @@ namespace sTalker.Activities
                 StartActivity(typeof(AdminResultsActivity));
                 Finish();
             };
-
             FindViewById<TextView>(Resource.Id.livePointsTitle).Text = GameInfo.title;
             FindViewById<TextView>(Resource.Id.livePointsRoomCode).Text = GameInfo.roomCode;
-
             SetupRecyClerView();
+            DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Players").AsObservable<Player>().Subscribe(x => UpdatePlayers(x.Object));
+        }
+
+        private void UpdatePlayers(Player player)
+        {
+            if (player != null)
+            {
+                var playerToUpdate = registeredPlayers.Find(x => x.UserId == player.UserId);
+                playerToUpdate.points = player.points;
+                var list = registeredPlayers.OrderBy(p => p.points).ToList();
+                registeredPlayers.Clear();
+                registeredPlayers.AddRange(list);
+
+                RunOnUiThread(() => adapter.NotifyDataSetChanged());
+            }
         }
 
         private async Task SetGameEnd()
@@ -48,6 +63,7 @@ namespace sTalker.Activities
         {
             registeredPlayers = Task.Run(async () => await GetAllPlayers()).Result;
             pointsListView = FindViewById<ListView>(Resource.Id.livePointsList);
+            registeredPlayers = registeredPlayers.OrderBy(p => p.points).ToList();
             adapter = new PointsAdapter(this, registeredPlayers);
             pointsListView.Adapter = adapter;
             pointsListView.ItemClick += PointsListView_ItemClick;

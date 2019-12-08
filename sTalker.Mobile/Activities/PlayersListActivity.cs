@@ -67,7 +67,6 @@ namespace sTalker.Activities
                 registeredPlayers.Add(player);
                 RunOnUiThread(() => adapter.NotifyDataSetChanged());
             }
-            //TODO: update listview with new player (passed as parameter to this method)
         }
 
         private async Task SetGameStart()
