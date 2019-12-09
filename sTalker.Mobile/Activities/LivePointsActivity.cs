@@ -40,7 +40,6 @@ namespace sTalker.Activities
                 endBtn.Enabled = false;
                 endBtn.Visibility = Android.Views.ViewStates.Gone;
                 menuBtn.Visibility = Android.Views.ViewStates.Visible;
-                //StartActivity(typeof(ResultsActivity));
                 Finish();
             };
             FindViewById<TextView>(Resource.Id.livePointsTitle).Text = GameInfo.title;
