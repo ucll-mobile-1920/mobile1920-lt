@@ -31,7 +31,7 @@ namespace sTalker.Activities
             endBtn.Click += async (sender, e) => {
                 await SetGameEnd();
                 ((NotificationManager)ApplicationContext.GetSystemService(NotificationService)).Cancel(1001);
-                StartActivity(typeof(AdminResultsActivity));
+                StartActivity(typeof(ResultsActivity));
                 Finish();
             };
             FindViewById<TextView>(Resource.Id.livePointsTitle).Text = GameInfo.title;

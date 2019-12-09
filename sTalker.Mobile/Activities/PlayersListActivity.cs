@@ -48,6 +48,7 @@ namespace sTalker.Activities
             FindViewById<TextView>(Resource.Id.playerListTitle).Text = GameInfo.title;
             FindViewById<TextView>(Resource.Id.roomCode).Text = GameInfo.roomCode;
 
+            registeredPlayers.Clear();
             var players = Task.Run(async () => await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Players").OnceAsync<Player>()).Result;
             foreach(var p in players)
             {
