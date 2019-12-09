@@ -37,6 +37,7 @@ namespace sTalker.Activities
         private void SetupRecyClerView()
         {
             registeredPlayers = Task.Run(async () => await GetAllPlayers()).Result;
+            registeredPlayers = registeredPlayers.OrderBy(p => p.points).Reverse().ToList();
             pointsListView = FindViewById<ListView>(Resource.Id.list);
             adapter = new PointsAdapter(this, registeredPlayers);
             pointsListView.Adapter = adapter;

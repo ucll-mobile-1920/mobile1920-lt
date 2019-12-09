@@ -73,4 +73,5 @@
         android:text="let's Talk!"
         android:textColor="#01908A"
         android:textSize="18sp" />
+
 </RelativeLayout>

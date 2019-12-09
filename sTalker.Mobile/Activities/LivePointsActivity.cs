@@ -20,18 +20,27 @@ namespace sTalker.Activities
         private ListView pointsListView;
         private List<Player> registeredPlayers = new List<Player>();
         PointsAdapter adapter;
+        private Button menuBtn;
+        private Button endBtn;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.livePoints);
 
-            Button endBtn = FindViewById<Button>(Resource.Id.end_btn);
+            endBtn = FindViewById<Button>(Resource.Id.end_btn);
+            menuBtn = FindViewById<Button>(Resource.Id.mainMenu_btn);
+            menuBtn.Visibility = Android.Views.ViewStates.Gone;
+            menuBtn.Click+=(sender,e) => StartActivity(typeof(MainActivity));
+
             endBtn.Click += (sender,e)=>endBtn.Enabled = false;
             endBtn.Click += async (sender, e) => {
                 await SetGameEnd();
                 ((NotificationManager)ApplicationContext.GetSystemService(NotificationService)).Cancel(1001);
-                StartActivity(typeof(ResultsActivity));
+                endBtn.Enabled = false;
+                endBtn.Visibility = Android.Views.ViewStates.Gone;
+                menuBtn.Visibility = Android.Views.ViewStates.Visible;
+                //StartActivity(typeof(ResultsActivity));
                 Finish();
             };
             FindViewById<TextView>(Resource.Id.livePointsTitle).Text = GameInfo.title;
