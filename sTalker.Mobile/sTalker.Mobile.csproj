@@ -60,7 +60,6 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\AdminResultsActivity.cs" />
     <Compile Include="Activities\WaitGameEndActivity.cs" />
     <Compile Include="Activities\ResultsActivity.cs" />
     <Compile Include="Activities\SelfieCameraActivity.cs" />
@@ -237,11 +236,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\results.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\adminResults.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

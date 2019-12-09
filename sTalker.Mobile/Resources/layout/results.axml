@@ -14,11 +14,21 @@
         android:textColor="#fff"
         android:textSize="28sp"
         android:textStyle="bold" />
+	    <TextView
+        android:id="@+id/resultLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+		android:layout_marginLeft="10dp"
+        android:text="Results"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:textStyle="bold" />
      <LinearLayout
         android:id="@+id/listLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/resultLabel"
         android:layout_marginStart="48dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="48dp"
