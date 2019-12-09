@@ -11,6 +11,7 @@ using sTalker.Notifications;
 using sTalker.Shared.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
@@ -48,11 +49,10 @@ namespace sTalker.Activities
             FindViewById<TextView>(Resource.Id.playerListTitle).Text = GameInfo.title;
             FindViewById<TextView>(Resource.Id.roomCode).Text = GameInfo.roomCode;
 
-            registeredPlayers.Clear();
             var players = Task.Run(async () => await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Players").OnceAsync<Player>()).Result;
             foreach(var p in players)
             {
-                registeredPlayers.Add(p.Object);
+                if(registeredPlayers.Find(x => x.UserId == p.Object.UserId) == null) registeredPlayers.Add(p.Object);
             }
 
             playersListView = FindViewById<ListView>(Resource.Id.playersList);

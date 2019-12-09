@@ -47,6 +47,7 @@ namespace sTalker.Activities
                 var playerToUpdate = registeredPlayers.Find(x => x.UserId == player.UserId);
                 playerToUpdate.points = player.points;
                 var list = registeredPlayers.OrderBy(p => p.points).ToList();
+                list.Reverse();
                 registeredPlayers.Clear();
                 registeredPlayers.AddRange(list);
 
@@ -64,6 +65,7 @@ namespace sTalker.Activities
             registeredPlayers = Task.Run(async () => await GetAllPlayers()).Result;
             pointsListView = FindViewById<ListView>(Resource.Id.livePointsList);
             registeredPlayers = registeredPlayers.OrderBy(p => p.points).ToList();
+            registeredPlayers.Reverse();
             adapter = new PointsAdapter(this, registeredPlayers);
             pointsListView.Adapter = adapter;
             pointsListView.ItemClick += PointsListView_ItemClick;
