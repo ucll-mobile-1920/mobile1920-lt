@@ -9,7 +9,6 @@
         android:id="@+id/login_in_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/app_name"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="48dp"
         android:layout_marginTop="18dp"

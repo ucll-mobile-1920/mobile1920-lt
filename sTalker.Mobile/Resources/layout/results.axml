@@ -5,7 +5,7 @@
     android:background="#01908A">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/ResultTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -18,7 +18,7 @@
         android:id="@+id/resultLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/ResultTitle"
 		android:layout_marginLeft="10dp"
         android:text="Results"
         android:textColor="#fff"

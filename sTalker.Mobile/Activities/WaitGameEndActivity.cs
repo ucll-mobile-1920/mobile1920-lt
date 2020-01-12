@@ -20,6 +20,7 @@ namespace sTalker.Activities
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.waitGameEnd);
+            FindViewById<TextView>(Resource.Id.waitGameEndTitle).Text = GameInfo.title;
         }
 
     }

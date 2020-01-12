@@ -2,8 +2,11 @@
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Widget;
+using sTalker.Helpers;
 using sTalker.Notifications;
+using sTalker.Shared.Models;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace sTalker.Activities
@@ -29,6 +32,17 @@ namespace sTalker.Activities
                     GameInfo.personGroup = Task.Run(async () =>
                         await GameInfo.faceServiceClient.GetPersonGroupAsync(text.Text)).Result;
 
+                    var status = Task.Run(async () => 
+                        await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Status/0").OnceSingleAsync<GameStatus>()).Result;
+                    if(status != GameStatus.NEW)
+                    {
+                        new ToastCreator(this, "Game has already started. You cannot join.").Run();
+                        nextBtn.Enabled = true;
+                        return;
+                    }
+
+                    GameInfo.title = Task.Run(async () =>
+                        await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Title").OnceSingleAsync<string>()).Result;
                     StartActivity(typeof(RegistrationActivity));
                     Finish();
                 }

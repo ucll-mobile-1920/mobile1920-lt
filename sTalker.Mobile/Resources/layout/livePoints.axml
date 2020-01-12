@@ -32,7 +32,7 @@
         android:id="@+id/livePointsRoomCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/app_name"
+        android:layout_below="@id/livePointsTitle"
         android:layout_marginStart="48dp"
         android:layout_marginTop="115dp"
         android:layout_marginEnd="18dp"

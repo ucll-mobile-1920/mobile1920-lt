@@ -2,9 +2,11 @@
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Widget;
+using sTalker.Helpers;
 using sTalker.Notifications;
 using sTalker.Shared.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace sTalker.Activities
 {
@@ -38,12 +40,24 @@ namespace sTalker.Activities
                     return;
                 }
 
+                var status = Task.Run(async () =>
+                    await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Status/0").OnceSingleAsync<GameStatus>()).Result;
+                if (status != GameStatus.NEW)
+                {
+                    new ToastCreator(this, "Game has already started. You cannot join.").Run();
+                    StartActivity(typeof(MainActivity));
+                    Finish();
+                    return;
+                }
+
                 player = new Player(name, hints.ToList());
                 GameInfo.player = player;
 
                 StartActivity(typeof(SelfieCameraActivity));
                 Finish();
             };
+
+            FindViewById<TextView>(Resource.Id.registrationTitle).Text = GameInfo.title;
         }
     }
 }

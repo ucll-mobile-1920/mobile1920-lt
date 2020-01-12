@@ -30,8 +30,9 @@ namespace sTalker.Activities
                 StartActivity(typeof(MainActivity));
             };
 
-            FindViewById<TextView>(Resource.Id.title).Text = GameInfo.title;
+            FindViewById<TextView>(Resource.Id.ResultTitle).Text = GameInfo.title;
             SetupRecyClerView();
+            ((NotificationManager)ApplicationContext.GetSystemService(NotificationService)).Cancel(2003);
         }
 
         private void SetupRecyClerView()
