@@ -77,9 +77,11 @@ namespace sTalker.Activities
            await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Status/0").PutAsync(GameStatus.STARTED);
 
             var startTime = DateTime.Now;
-           await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/StartTime").PutAsync(startTime);
+            GameInfo.gameEnd = startTime.AddMinutes(GameInfo.duration);
+            await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/StartTime").PutAsync(startTime);
 
             await GameInfo.faceServiceClient.TrainPersonGroupAsync(GameInfo.personGroup.PersonGroupId);
+
         }
 
         private void PlayersListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)

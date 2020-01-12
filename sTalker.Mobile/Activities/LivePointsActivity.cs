@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 using System.Reactive.Linq;
+using System.Timers;
 
 namespace sTalker.Activities
 {
@@ -22,6 +23,8 @@ namespace sTalker.Activities
         PointsAdapter adapter;
         private Button menuBtn;
         private Button endBtn;
+
+        public Timer timer { get; private set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -47,6 +50,29 @@ namespace sTalker.Activities
             FindViewById<TextView>(Resource.Id.livePointsRoomCode).Text = GameInfo.roomCode;
             SetupRecyClerView();
             DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Players").AsObservable<Player>().Subscribe(x => UpdatePlayers(x.Object));
+
+            timer = new Timer();
+            timer.Interval = 3000;
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
+        }
+
+        private async void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (DateTime.Now >= GameInfo.gameEnd)
+            {
+                timer.Stop();
+                await SetGameEnd();
+                ((NotificationManager)ApplicationContext.GetSystemService(NotificationService)).Cancel(1001);
+                RunOnUiThread(() =>
+                {
+                    endBtn.Enabled = false;
+                    endBtn.Visibility = Android.Views.ViewStates.Gone;
+                    menuBtn.Visibility = Android.Views.ViewStates.Visible;
+                    StartActivity(typeof(ResultsActivity));
+                    Finish();
+                });
+            }
         }
 
         private void UpdatePlayers(Player player)

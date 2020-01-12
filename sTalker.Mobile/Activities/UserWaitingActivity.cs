@@ -23,15 +23,6 @@ namespace sTalker.Activities
             SetContentView(Resource.Layout.userWaiting);
 
             FindViewById<TextView>(Resource.Id.userWaitingTitle).Text = GameInfo.title;
-            var status = Task.Run(async () =>
-                await DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Status/0").OnceSingleAsync<GameStatus>()).Result;
-            if (status != GameStatus.NEW)
-            {
-                new ToastCreator(this, "Game has already started. You cannot join.").Run();
-                StartActivity(typeof(MainActivity));
-                Finish();
-                return;
-            }
 
             DataHelper.GetFirebase().Child($"Games/{GameInfo.roomCode}/Status").AsObservable<GameStatus>().Subscribe(x => StartGame(x.Object));
         }

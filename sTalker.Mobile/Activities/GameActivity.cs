@@ -30,6 +30,7 @@ namespace sTalker.Activities
         private TextView gameTimer;
 
         private EditText[] hints;
+        private Button proveIt;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -59,7 +60,8 @@ namespace sTalker.Activities
                 FindViewById<EditText>(Resource.Id.hint5)
             };
 
-            FindViewById<Button>(Resource.Id.foundSomeone_btn).Click += (sender, e) => {
+            proveIt = FindViewById<Button>(Resource.Id.foundSomeone_btn);
+            proveIt.Click += (sender, e) => {
                 StartActivity(typeof(ProveItActivity));
             };
 
@@ -90,9 +92,9 @@ namespace sTalker.Activities
             endTime = startTime.AddMinutes(duration);
             GameInfo.gameEnd = endTime;
 
-            var nextHintShownAfter = duration / 5;
+            var nextHintShownAfter = duration / 5.0;
 
-            firstHintTime = startTime.AddMinutes(nextHintShownAfter);
+            firstHintTime = startTime;
             secondHintTime = firstHintTime.AddMinutes(nextHintShownAfter);
             thirdHintTime = secondHintTime.AddMinutes(nextHintShownAfter);
             fourthHintTime = thirdHintTime.AddMinutes(nextHintShownAfter);
@@ -112,16 +114,19 @@ namespace sTalker.Activities
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
+            if (DateTime.Now >= endTime)
+            {
+                RunOnUiThread(() => gameTimer.Text = "Waiting for results...");
+                proveIt.Enabled = false;
+                proveIt.Visibility = Android.Views.ViewStates.Invisible;
+                return;
+            }
             TimeSpan timeSpan = endTime.Subtract(DateTime.Now);
           
             RunOnUiThread(() => gameTimer.Text = timeSpan.ToString(@"hh\:mm\:ss"));
 
-            if (timeSpan.TotalSeconds == 0)
-            {
-                EndGame();
-                return;
-            }
-            else if(DateTime.Now >= secondHintTime && nextHintNr==1)
+            
+            if(DateTime.Now >= secondHintTime && nextHintNr==1)
             {
                 RunOnUiThread(() => hints[1].Text = playerToFind.hints[1]);
                 nextHintNr = 2;
