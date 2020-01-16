@@ -55,9 +55,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/registrationTitle"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="115dp"
+        android:layout_marginTop="120dp"
         android:layout_marginEnd="18dp"
-        android:text="Hints"
+        android:text="Hints about yourself"
         android:textColor="#fff"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -80,7 +80,8 @@
             android:inputType="textEmailAddress"
             android:padding="4dp"
             android:textColor="@android:color/black"
-            android:background="#006F6B"/>
+            android:background="#006F6B"
+			android:hint='F.e. "Favorite animal - dog"'/>
 
         <EditText
             android:id="@+id/hint2"
@@ -90,7 +91,8 @@
             android:inputType="textEmailAddress"
             android:padding="4dp"
             android:background="#006F6B"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+		   android:hint='F.e. "I have three siblings"'/>
 
         <EditText
             android:id="@+id/hint3"
@@ -100,7 +102,8 @@
             android:inputType="textEmailAddress"
             android:padding="4dp"
             android:background="#006F6B"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+		    android:hint='F.e. "Basketball is my hobby"'/>
 
         <EditText
             android:id="@+id/hint4"
@@ -110,7 +113,8 @@
             android:inputType="textEmailAddress"
             android:padding="4dp"
             android:background="#006F6B"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+		    android:hint='F.e. "I hate pineapple on pica"'/>
        
         <EditText
             android:id="@+id/hint5"
@@ -120,7 +124,8 @@
             android:inputType="textEmailAddress"
             android:padding="4dp"
             android:background="#006F6B"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+		  android:hint='F.e. "I love Beyonce"'/>
     </LinearLayout>
 
     <Button

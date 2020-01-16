@@ -34,17 +34,30 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/playerListTitle"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="115dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="18dp"
         android:textColor="#fff"
         android:textSize="24sp"
+		android:text="a"
+        android:textStyle="bold"/>
+
+	 <TextView
+        android:id="@+id/playersLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/roomCode"
+		android:layout_marginLeft="48dp"
+		android:layout_marginTop="30dp"
+        android:text="Joined players:"
+        android:textColor="#fff"
+        android:textSize="20dp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/edit_texts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/roomCode"
+        android:layout_below="@id/playersLabel"
         android:layout_marginStart="48dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="48dp"

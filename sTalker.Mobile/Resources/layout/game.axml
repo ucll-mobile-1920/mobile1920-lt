@@ -37,7 +37,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="115dp"
         android:layout_marginEnd="18dp"
-        android:text="Find a person who"
+        android:text="Find a person who said:"
         android:textColor="#fff"
         android:textSize="24sp"
         android:textStyle="bold" />
