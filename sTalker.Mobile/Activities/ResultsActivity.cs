@@ -28,6 +28,7 @@ namespace sTalker.Activities
             FindViewById<Button>(Resource.Id.mainMenu_btn).Click += (sender, e) =>
             {
                 StartActivity(typeof(MainActivity));
+                Finish();
             };
 
             FindViewById<TextView>(Resource.Id.ResultTitle).Text = GameInfo.title;
@@ -63,6 +64,11 @@ namespace sTalker.Activities
         {
             var select = registeredPlayers[e.Position].Name;
             Toast.MakeText(this, select, ToastLength.Long).Show();
+        }
+
+        public override void OnBackPressed()
+        {
+            StartActivity(typeof(MainActivity));
         }
     }
 }
