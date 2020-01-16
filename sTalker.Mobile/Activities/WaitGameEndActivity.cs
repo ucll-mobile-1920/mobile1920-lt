@@ -23,6 +23,11 @@ namespace sTalker.Activities
             FindViewById<TextView>(Resource.Id.waitGameEndTitle).Text = GameInfo.title;
         }
 
+
+        public override void OnBackPressed()
+        {
+            StartActivity(typeof(MainActivity));
+        }
     }
 }
 
